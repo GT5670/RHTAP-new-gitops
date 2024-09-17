@@ -13,4 +13,4 @@ spec:
     spec:
       containers:
       - image: quay.io/redhat-appstudio/dance-bootstrap-app:latest
-        name: container-image  
+        name: container-image 
