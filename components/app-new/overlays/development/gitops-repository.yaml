@@ -1,0 +1,6 @@
+apiVersion: "pipelinesascode.tekton.dev/v1alpha1"
+kind: Repository
+metadata:
+  name: app-new-gitops-repository
+spec:
+  url: https://github.com/GT5670/RHTAP-new-gitops
