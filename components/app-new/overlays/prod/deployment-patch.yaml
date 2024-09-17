@@ -9,7 +9,7 @@ metadata:
   name: app-new
 spec:
   replicas: 1 
-  template: 
+  template:
     spec:
       containers:
       - image: quay.io/redhat-appstudio/dance-bootstrap-app:latest
