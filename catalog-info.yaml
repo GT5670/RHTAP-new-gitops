@@ -1,21 +1,127 @@
-apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: app-new-gitops
-  description: This is GitOps manifest for app-new   
-  links:
-    - url: https://www.redhat.com/en/solutions/trusted-software-supply-chain
-      title: Trusted Secure Supply Chain 
-      icon: dashboard
-      type: admin-dashboard
-  annotations:    
-    argocd/app-name: app-new
-    janus-idp.io/tekton: app-new
-    backstage.io/kubernetes-id: app-new 
-    backstage.io/techdocs-ref: dir:. 
-spec:
-  type: gitops
-  owner: user:guest 
-  lifecycle: experimental
-  dependsOn:
-    - component:app-new
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navItems = document.querySelectorAll('.pf-v5-c-jump-links__item');
+            const navLinks = document.querySelectorAll('.pf-v5-c-jump-links__link');
+
+            // Function to remove 'pf-m-current' from all nav items
+            function clearCurrent() {
+                navItems.forEach(item => {
+                    item.classList.remove('pf-m-current');
+                    item.querySelector('a').removeAttribute('aria-current');
+                });
+            }
+
+            // Update current nav item on click
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    // Smooth scroll to the section
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+
+                    clearCurrent();
+                    this.parentElement.classList.add('pf-m-current');
+                    this.setAttribute('aria-current', 'page');
+                });
+            });
+
+            // Get all sections (the divs with id starting with 'section-')
+            const sections = Array.from(document.querySelectorAll('div[id^="section-"]'));
+
+            // Update current nav item on scroll using IntersectionObserver
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% of the section should be visible
+            };
+
+            let isScrolling = false;
+
+            const observer = new IntersectionObserver(entries => {
+                if (isScrolling) return;
+
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navItem = document.querySelector(`.pf-v5-c-jump-links__link[href="#${id}"]`)?.parentElement;
+
+                    if (entry.isIntersecting && navItem) {
+                        clearCurrent();
+                        navItem.classList.add('pf-m-current');
+                        navItem.querySelector('a').setAttribute('aria-current', 'page');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Detect manual scrolling to prevent conflicts with smooth scrolling
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            });
+        });
+        // Function to copy text to clipboard
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(function () {
+                    // Optional: Provide user feedback, e.g., show a temporary tooltip
+                    console.log('Link copied to clipboard');
+                }, function (err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Existing code...
+
+                // Add event listeners to the link icons
+                const linkIcons = document.querySelectorAll('.copy-link-icon');
+
+                linkIcons.forEach(icon => {
+                    icon.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevent default anchor behavior
+
+                        // Get the href attribute (e.g., #add-on)
+                        const fragment = this.getAttribute('href');
+
+                        // Build the full URL
+                        const url = window.location.origin + window.location.pathname + fragment;
+
+                        // Copy the URL to the clipboard
+                        copyToClipboard(url);
+
+                        // Optional: Provide user feedback to the user
+                        // For example, display a tooltip or alert
+                        // Here, we'll display a temporary tooltip using a custom function
+                        showTooltip(this, 'Link copied!');
+
+                    });
+                });
+
+                // Optional: Function to show a temporary tooltip
+                function showTooltip(element, message) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'copy-tooltip';
+                    tooltip.innerText = message;
+                    document.body.appendChild(tooltip);
+
+                    // Position the tooltip near the element
+                    const rect = element.getBoundingClientRect();
+                    tooltip.style.left = rect.left + window.pageXOffset + 'px';
+                    tooltip.style.top = rect.top + window.pageYOffset - tooltip.offsetHeight - 8 + 'px';
+
+                    // Fade out and remove the tooltip after a short delay
+                    setTimeout(() => {
+                        tooltip.classList.add('fade-out');
+                        tooltip.addEventListener('transitionend', () => {
+                            tooltip.remove();
+                        });
+                    }, 1500);
+                }
+            });
