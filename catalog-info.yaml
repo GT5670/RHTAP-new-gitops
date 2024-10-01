@@ -1,69 +1,7 @@
 ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
 DEBUG:redshift_connector.cursor:Cursor.paramstyle=format
-ERROR:app:Exception on /opl/search-to-view-products [GET]
-Traceback (most recent call last):
-  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/projects/routes/view_routes.py", line 36, in view_products
-    form = SearchForm()
-           ^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/wtforms/form.py", line 208, in __call__
-    return type.__call__(cls, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/projects/forms.py", line 97, in __init__
-    self.product_type.choices = [(pt.type_id, pt.product_type) for pt in ProductType.query.all()]
-                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2773, in all
-    return self._iter().all()
-           ^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
-    result = self.session.execute(
-             ^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
-    result = conn._execute_20(statement, params or {}, execution_options)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
-    return meth(self, args_10style, kwargs_10style, execution_options)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
-    ret = self._execute_context(
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
-    self._handle_dbapi_exception(
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 2138, in _handle_dbapi_exception
-    util.raise_(exc_info[1], with_traceback=exc_info[2])
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
-    raise exception
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
-    self.dialect.do_execute(
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
-    cursor.execute(statement, parameters)
-  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/cursor.py", line 238, in execute
-    self._c.execute(self, "begin transaction", None)
-  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/core.py", line 1777, in execute
-    self._flush()
-  File "/usr/lib64/python3.11/socket.py", line 724, in write
-    return self._sock.send(b)
-           ^^^^^^^^^^^^^^^^^^
-  File "/usr/lib64/python3.11/ssl.py", line 1243, in send
-    return self._sslobj.write(data)
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
-DEBUG:redshift_connector.cursor:Cursor.paramstyle=format
-ERROR:app:Exception on /opl/search-to-edit-products [GET]
+ERROR:routes.add_routes:Error during form submission: EOF occurred in violation of protocol (_ssl.c:2427)
+ERROR:app:Exception on /opl/add-product [GET]
 Traceback (most recent call last):
   File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
     response = self.full_dispatch_request()
@@ -80,51 +18,25 @@ Traceback (most recent call last):
   File "/opt/app-root/lib64/python3.11/site-packages/flask_principal.py", line 199, in _decorated
     rv = f(*args, **kw)
          ^^^^^^^^^^^^^^
-  File "/projects/routes/edit_routes.py", line 43, in edit_products
-    form = SearchForm()
-           ^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/wtforms/form.py", line 208, in __call__
-    return type.__call__(cls, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/projects/forms.py", line 97, in __init__
-    self.product_type.choices = [(pt.type_id, pt.product_type) for pt in ProductType.query.all()]
-                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2773, in all
-    return self._iter().all()
-           ^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
-    result = self.session.execute(
-             ^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
-    result = conn._execute_20(statement, params or {}, execution_options)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
-    return meth(self, args_10style, kwargs_10style, execution_options)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
-    ret = self._execute_context(
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
-    self._handle_dbapi_exception(
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 2138, in _handle_dbapi_exception
-    util.raise_(exc_info[1], with_traceback=exc_info[2])
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
-    raise exception
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
-    self.dialect.do_execute(
-  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
-    cursor.execute(statement, parameters)
-  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/cursor.py", line 238, in execute
-    self._c.execute(self, "begin transaction", None)
-  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/core.py", line 1777, in execute
-    self._flush()
-  File "/usr/lib64/python3.11/socket.py", line 724, in write
-    return self._sock.send(b)
-           ^^^^^^^^^^^^^^^^^^
-  File "/usr/lib64/python3.11/ssl.py", line 1243, in send
-    return self._sslobj.write(data)
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
+  File "/projects/routes/add_routes.py", line 266, in add_product
+    return render_template('opl/add.html', form=form, success_message=success_message,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/opt/app-root/lib64/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/projects/templates/opl/add.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/projects/templates/base.html", line 14, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/projects/templates/opl/add.html", line 35, in block 'content'
+    {% for value, label in form.product_type.choices %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
