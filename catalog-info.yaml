@@ -1,127 +1,130 @@
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navItems = document.querySelectorAll('.pf-v5-c-jump-links__item');
-            const navLinks = document.querySelectorAll('.pf-v5-c-jump-links__link');
-
-            // Function to remove 'pf-m-current' from all nav items
-            function clearCurrent() {
-                navItems.forEach(item => {
-                    item.classList.remove('pf-m-current');
-                    item.querySelector('a').removeAttribute('aria-current');
-                });
-            }
-
-            // Update current nav item on click
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    // Smooth scroll to the section
-                    event.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-
-                    clearCurrent();
-                    this.parentElement.classList.add('pf-m-current');
-                    this.setAttribute('aria-current', 'page');
-                });
-            });
-
-            // Get all sections (the divs with id starting with 'section-')
-            const sections = Array.from(document.querySelectorAll('div[id^="section-"]'));
-
-            // Update current nav item on scroll using IntersectionObserver
-            const observerOptions = {
-                root: null, // viewport
-                rootMargin: '0px',
-                threshold: 0.1 // 10% of the section should be visible
-            };
-
-            let isScrolling = false;
-
-            const observer = new IntersectionObserver(entries => {
-                if (isScrolling) return;
-
-                entries.forEach(entry => {
-                    const id = entry.target.getAttribute('id');
-                    const navItem = document.querySelector(`.pf-v5-c-jump-links__link[href="#${id}"]`)?.parentElement;
-
-                    if (entry.isIntersecting && navItem) {
-                        clearCurrent();
-                        navItem.classList.add('pf-m-current');
-                        navItem.querySelector('a').setAttribute('aria-current', 'page');
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Detect manual scrolling to prevent conflicts with smooth scrolling
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                isScrolling = true;
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    isScrolling = false;
-                }, 100);
-            });
-        });
-        // Function to copy text to clipboard
-            function copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(function () {
-                    // Optional: Provide user feedback, e.g., show a temporary tooltip
-                    console.log('Link copied to clipboard');
-                }, function (err) {
-                    console.error('Could not copy text: ', err);
-                });
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                // Existing code...
-
-                // Add event listeners to the link icons
-                const linkIcons = document.querySelectorAll('.copy-link-icon');
-
-                linkIcons.forEach(icon => {
-                    icon.addEventListener('click', function (event) {
-                        event.preventDefault(); // Prevent default anchor behavior
-
-                        // Get the href attribute (e.g., #add-on)
-                        const fragment = this.getAttribute('href');
-
-                        // Build the full URL
-                        const url = window.location.origin + window.location.pathname + fragment;
-
-                        // Copy the URL to the clipboard
-                        copyToClipboard(url);
-
-                        // Optional: Provide user feedback to the user
-                        // For example, display a tooltip or alert
-                        // Here, we'll display a temporary tooltip using a custom function
-                        showTooltip(this, 'Link copied!');
-
-                    });
-                });
-
-                // Optional: Function to show a temporary tooltip
-                function showTooltip(element, message) {
-                    const tooltip = document.createElement('div');
-                    tooltip.className = 'copy-tooltip';
-                    tooltip.innerText = message;
-                    document.body.appendChild(tooltip);
-
-                    // Position the tooltip near the element
-                    const rect = element.getBoundingClientRect();
-                    tooltip.style.left = rect.left + window.pageXOffset + 'px';
-                    tooltip.style.top = rect.top + window.pageYOffset - tooltip.offsetHeight - 8 + 'px';
-
-                    // Fade out and remove the tooltip after a short delay
-                    setTimeout(() => {
-                        tooltip.classList.add('fade-out');
-                        tooltip.addEventListener('transitionend', () => {
-                            tooltip.remove();
-                        });
-                    }, 1500);
-                }
-            });
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
+DEBUG:redshift_connector.cursor:Cursor.paramstyle=format
+ERROR:app:Exception on /opl/search-to-view-products [GET]
+Traceback (most recent call last):
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/projects/routes/view_routes.py", line 36, in view_products
+    form = SearchForm()
+           ^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/wtforms/form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/projects/forms.py", line 97, in __init__
+    self.product_type.choices = [(pt.type_id, pt.product_type) for pt in ProductType.query.all()]
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2773, in all
+    return self._iter().all()
+           ^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 2138, in _handle_dbapi_exception
+    util.raise_(exc_info[1], with_traceback=exc_info[2])
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/cursor.py", line 238, in execute
+    self._c.execute(self, "begin transaction", None)
+  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/core.py", line 1777, in execute
+    self._flush()
+  File "/usr/lib64/python3.11/socket.py", line 724, in write
+    return self._sock.send(b)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/ssl.py", line 1243, in send
+    return self._sslobj.write(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
+DEBUG:redshift_connector.cursor:Cursor.paramstyle=format
+ERROR:app:Exception on /opl/search-to-edit-products [GET]
+Traceback (most recent call last):
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/flask_principal.py", line 199, in _decorated
+    rv = f(*args, **kw)
+         ^^^^^^^^^^^^^^
+  File "/projects/routes/edit_routes.py", line 43, in edit_products
+    form = SearchForm()
+           ^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/wtforms/form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/projects/forms.py", line 97, in __init__
+    self.product_type.choices = [(pt.type_id, pt.product_type) for pt in ProductType.query.all()]
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2773, in all
+    return self._iter().all()
+           ^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 2138, in _handle_dbapi_exception
+    util.raise_(exc_info[1], with_traceback=exc_info[2])
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/opt/app-root/lib64/python3.11/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/cursor.py", line 238, in execute
+    self._c.execute(self, "begin transaction", None)
+  File "/opt/app-root/lib64/python3.11/site-packages/redshift_connector/core.py", line 1777, in execute
+    self._flush()
+  File "/usr/lib64/python3.11/socket.py", line 724, in write
+    return self._sock.send(b)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/ssl.py", line 1243, in send
+    return self._sslobj.write(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
