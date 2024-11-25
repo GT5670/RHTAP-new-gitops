@@ -22,3 +22,12 @@ These pipelines are in template format. The references to this repository in the
 
 The intent of the template is to be able to fork this repository and update its use in the Developer Hub templates directory. 
 
+Elevate your development with secure templates
+If you have the Red Hat Trusted Application Pipeline (RHTAP) installed, Red Hat Developer Hub becomes even more powerful. RHTAP provides additional secure software templates that you can use right within RHDH. These templates help you integrate advanced security measures into your development process seamlessly, without adding complexity. 
+
+By integrating Red Hat Trusted Artifact Signer (RHTAS) for code integrity, Red hat Trusted Profile Analyzer (RHTPA) for automated SBOM creation, and Red Hat Advanced Cluster Security (RHACS) for proactive vulnerability scanning, RHTAP strengthens your security posture with advanced tools, offering a robust defense against security threats throughout the development lifecycle.
+Ready-to-use secure templates: Jumpstart your projects with templates that incorporate industry-leading security practices. RHTAP ensures that every line of code contributes to a fortress of security significantly enhancing early vulnerability detection and mitigation.
+Seamless integration:  The secure templates from RHTAP slide right into your existing workflows, so there’s no extra work for your team. By aligning with Supply-chain Levels for Software Artifacts (SLSA) Level 3 RHTAP’s pioneering secure CI/CD framework upholds the highest standards in software development.
+Focus on innovation: With security built into your templates, RHTAP helps you adopt a DevSecOps culture. This allows your developers to concentrate on building great features without getting bogged down by security setups.
+
+
