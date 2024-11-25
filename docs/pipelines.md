@@ -30,4 +30,5 @@ Ready-to-use secure templates: Jumpstart your projects with templates that incor
 Seamless integration:  The secure templates from RHTAP slide right into your existing workflows, so there’s no extra work for your team. By aligning with Supply-chain Levels for Software Artifacts (SLSA) Level 3 RHTAP’s pioneering secure CI/CD framework upholds the highest standards in software development.
 Focus on innovation: With security built into your templates, RHTAP helps you adopt a DevSecOps culture. This allows your developers to concentrate on building great features without getting bogged down by security setups.
 
+I would add on a sentence or two to this section to highlight that RHTAP includes DH, TAS, TPA, Quay, and ACS to make the feature highlights per product more clear that they are connected with RHTAP. Also, by highlighting that RHTAP includes DH and more-you are getting the security features that come with those other products.
 
