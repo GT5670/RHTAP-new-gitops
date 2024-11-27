@@ -1,9 +1,19 @@
-== How Does {ProductShortName} work?
+[cols="1,1"]
+|===
+|Component or Technology |Description
 
-{ProductShortName} empowers organizations to secure and streamline their DevSecOps CI/CD workflows with a comprehensive suite of tools:
+| {RHDHLongName} ({RHDHShortName}) | A self-service portal that streamlines development and integrates security best practices from the start.
 
-* *Secure development from the day one:* Access pre-built templates in {RHDHLongName}, which include code repositories, documentation, and CI/CD pipelines to streamline the onboarding process.
+| {RHTASLongName} ({RHTASShortName}) | Enhances software integrity through signature and attestation, ensuring all artifacts are secure and authentic.
 
-* *Continuous security and compliance:* Each code modification triggers security checks, including artifact signing, vulnerability scanning, and SBOM generation, ensuring compliance with enterprise standards.
+| {RHTPALongName} ({RHTPAShortName}) | Automates the creation and management of SBOMs, providing transparency and compliance in your software supply chain.
 
-* *Managed deployment:* From development to production, {ProductShortName} enforces security policies through Enterprise Contracts, ensuring only compliant builds are deployed.
+| {RHACSLongName} ({RHACSShortName}) | Automates the scanning of artifacts for vulnerabilities.
+
+| OpenShift GitOps | Manages Kubernetes deployments and infrastructure using Git repositories, ensuring consistent, automated, and secure deployment practices.
+
+| OpenShift Pipelines | Automates the CI/CD processes with visibility and control over build, test, and deployment workflows.
+
+| Argo CD | Automates application deployment and lifecycle management, ensuring consistent versions of app definitions, configurations, and environments.
+
+|===
