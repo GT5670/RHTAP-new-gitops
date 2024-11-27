@@ -1,19 +1,42 @@
-[cols="1,1"]
+:_mod-docs-content-type: CONCEPT
+
+[id="rhtap-workflow_{context}"]
+
+= {ProductShortName} Workflow
+
+The {ProductShortName} workflow involves key steps to create, update, secure, and deploy applications. It also allows integration with various repositories, container registries, and CI/CD tools for flexibility.
+
+[cols="1,1", options="header"]
 |===
-|Component or Technology |Description
+| Step | Description
 
-| {RHDHLongName} ({RHDHShortName}) | A self-service portal that streamlines development and integrates security best practices from the start.
+| Install {ProductShortName}
+| Begin by installing {ProductShortName} in your environment to enable secure and efficient DevSecOps workflows.
 
-| {RHTASLongName} ({RHTASShortName}) | Enhances software integrity through signature and attestation, ensuring all artifacts are secure and authentic.
+| Create an Application
+a| Use pre-built templates to create an application. These templates are customizable and include pipelines and configurations to simplify the development process. When creating an application you can choose:
 
-| {RHTPALongName} ({RHTPAShortName}) | Automates the creation and management of SBOMs, providing transparency and compliance in your software supply chain.
+* GitHub (default), Gitlab, or Bitbucket for repositories
+* Quay (default) or Jfrog Artifactory for registries
+* Tekton (default), GitHub Actions, Jenkins, or GitLab CI for CI/CD workflows
 
-| {RHACSLongName} ({RHACSShortName}) | Automates the scanning of artifacts for vulnerabilities.
+NOTE: If you select Bitbucket, GitLab, or Jenkins during application setup, you must configure these tools accordingly to integrate them with your pipeline.
 
-| OpenShift GitOps | Manages Kubernetes deployments and infrastructure using Git repositories, ensuring consistent, automated, and secure deployment practices.
+| Update an Application
+| Push updates to your application code as needed. The pipeline automatically processes and secures the changes.
 
-| OpenShift Pipelines | Automates the CI/CD processes with visibility and control over build, test, and deployment workflows.
+| View Security Insights
+| Pipeline runs provide a visual representation of all tasks, offering insights into security checks and compliance.
 
-| Argo CD | Automates application deployment and lifecycle management, ensuring consistent versions of app definitions, configurations, and environments.
+| Deploy an Application
+| Progress your application from Development to Staging and eventually to Production environments.
+
+| (Optional) Customize Templates and Pipelines 
+| Modify templates and pipelines to align with your organization's specific requirements and development practices.
 
 |===
+
+[role="_additional-resources"]
+.Next step
+
+* xref:installing-red-hat-trusted-application-pipeline_{context}[Your path to secure application development]
