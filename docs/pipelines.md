@@ -3,23 +3,23 @@
 
 = About {ProductName}
 
-Securing your software supply chain is critical to prevent software vulnerabilities. {ProductName} {ProductShortName} embeds security throughout the software development lifecycle (SDLC), enabling teams to innovate confidently while adhering to the highest security standards.
+Securing your software supply chain is critical to prevent software vulnerabilities. {ProductName} embeds security throughout the software development lifecycle (SDLC), enabling teams to innovate confidently while adhering to the highest security standards.
 
-== Overview of {ProductShortName}
+== Overview
 
 {ProductShortName} is a DevSecOps framework that integrates security from project inception to production. It incorporates advanced security practices to ensures that your software is resilient to threats while streamlining development processes.
 
-=== Features of {ProductShortName}
+=== Key features
 
 * *Secure CI/CD pipelines*: Build, test, and deploy container images securely using pre-configured pipelines integrated with your Git repository.
 
 * *Ready-to-use templates*: Start project quickly with customizable templates that apply secure development practices.
 
-* *Advanced vulnerability scanning*: Detect and address potential vulnerabilities with detailed insights, including automated generation of Software Bills of Materials (SBOMs).
+* *Vulnerability management*: Detect and address potential vulnerabilities with detailed insights, including automated generation of Software Bills of Materials (SBOMs).
 
-* *Enterprise contract enforcement*: Enforce quality and security rules at every stage of development to maintain compliance.
+* *Compliance with Enterprise Contracts*: Maintain regulatory compliance at every stage of the development process with our robust enforcement of security and quality standards.
 
-=== Technologies in {ProductShortName}
+=== Integrated technologies
 
 {ProductShortName} integrates with industry-leading platforms and tools:
 
@@ -27,7 +27,7 @@ Securing your software supply chain is critical to prevent software vulnerabilit
 |===
 |Component or Technology |Description
 
-| {RHDHLongName} ({RHDHShortName}) | A self-service portal that streamlines development and integrates security best practices from the start.
+| {RHDHLongName} ({RHDHShortName}) | A self-service portal that streamlines development and integrates security best practices from the get-go.
 
 | {RHTASLongName} ({RHTASShortName}) | Enhances software integrity through signature and attestation, ensuring all artifacts are secure and authentic.
 
@@ -43,7 +43,7 @@ Securing your software supply chain is critical to prevent software vulnerabilit
 
 |===
 
-=== Flexibility in {ProductShortName}
+=== Flexible configuration options
 
 {ProductShortName} allows flexibility in CI/CD management, source repositories, and artifact registries:
 
@@ -70,19 +70,15 @@ a|* Quay (Default)
 * JFrog Artifactory
 |===
 
-=== Target users of {ProductShortName}
+== How it works
 
-{ProductShortName} is designed for platform engineers, application developers, and security teams who aim to enhance the security and efficiency of their software supply chains. It is suitable for organizations establishing a new CI/CD process or optimizing an existing one.
+{ProductShortName} integrates security at every step of the DevSecOps workflow:
 
-== How {ProductShortName} works
+* *Start with secure templates:* Leverage pre-built templates from {RHDHLongName} ({RHDHShortName}) for a secure foundation. These templates include code repositories, documentation, and pre-configured CI/CD pipelines.
 
-{ProductShortName} secures and streamlines DevSecOps CI/CD workflows by integrating security throughout the development process:
+* *Develop and modify code:* Modify your code after creating the application. Each code change triggers a pipeline run that automatically performs security checks, including artifact signing, vulnerability scanning, and SBOM generation.
 
-* *Start with secure templates:* Select pre-built templates in {RHDHLongName} {RHDHShortName} to create your application. These templates include code repositories, documentation, and CI/CD pipelines.
-
-* *Develop and modify code:* After creating the application, modify the code. Each code change triggers a pipeline run that performs security checks, including artifact signing, vulnerability scanning, and Software Bill of Materials (SBOM) generation.
-
-* *Managed deployment:* From development to production, {ProductShortName} enforces security policies through Enterprise Contracts (EC), ensuring only compliant builds are deployed.
+* *Managed deployment:* {ProductShortName} enforces security policies throughout the development lifecycle, from development to production, using Enterprise Contracts (EC). This ensures that only compliant builds are deployed.
 
 [role="_additional-resources"]
 .Next step
