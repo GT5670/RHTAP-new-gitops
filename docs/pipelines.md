@@ -1,82 +1,85 @@
-Existing overview related docs in RHDH
-Release Notes guide
-Abstract
-Red Hat Developer Hub is a developer platform for building developer portals. This document contains release notes for the Red Hat Developer Hub 1.2.
+About Red Hat Developer Hub
 
-Preface
-Red Hat Developer Hub (Developer Hub) 1.2 is now generally available. Developer Hub is a fully supported, enterprise-grade productized version of upstream Backstage v1.26.5. You can access and download the Red Hat Developer Hub application from the Red Hat Customer Portal or from the Ecosystem Catalog.
-Benefits of Red Hat Developer Hub include:
-Increased developer productivity: Increases productivity by eliminating common organizational challenges, enabling seamless collaboration, and providing clear guidelines for creating, developing, and deploying applications.
-Unified self-service dashboard: Provides development teams with a unified dashboard covering various aspects such as Git, CI/CD, SAST/DAST?, Supply Chain, OpenShift/Kubernetes cluster, JIRA, monitoring, API, documentation, and more, facilitated by over 150 plugins. All curated by a platform engineering team, aligning with the company’s best practices. - Static application security testing (SAST) and dynamic application security testing (DAST) - testing methodologies that help find security vulnerabilities that could leave an organization's applications susceptible to attack.
-Best practices through software templates: Automates organizational best practices by encoding common tasks such as creating new applications, running Ansible jobs, and establishing CI/CD pipelines for production deployment in Git.
-Scalable technical documentation: Code and documentation resides in the same repository, eliminating dependencies on proprietary document systems.
-Efficient onboarding for new developers: New developers quickly adapt and become productive within a short timeframe.
-Robust enterprise Role-Based Access Control (RBAC): Empowers administrators to create roles, assign users or groups to roles, and implement robust security policies for enhanced access control.
-Red Hat Developer Hub incorporates various dynamic plugins. Red Hat fully supports certain plugins, while others are community-supported projects. Some plugins are enabled by default, while others require configuration and are consequently disabled by default.
-To get a comprehensive list of supported dynamic plugins, see the Preinstalled dynamic plugins section in the Configuring plugins in Red Hat Developer Hub guide.
-Getting started Guide
-Abstract
-Red Hat Developer Hub is an enterprise-grade platform for building developer portals. You can configure and customize your Developer Hub instance to meet your needs and preferences.
-Preface
-As a developer, you can use Red Hat Developer Hub to experience a streamlined development environment. Red Hat Developer Hub is driven by a centralized software catalog, providing efficiency to your microservices and infrastructure. It enables your product team to deliver quality code without any compromises.
+Red Hat Developer Hub (RHDH) is an enterprise-grade Internal Developer Portal (IDP) designed to streamline application development and foster innovation. Built on the upstream Backstage project, RHDH integrates seamlessly with Red Hat OpenShift to provide platform engineering teams with a centralized, customizable platform. This platform helps reduce developer friction, simplify onboarding, and improve productivity by offering pre-architected, supported approaches and a comprehensive suite of development tools.
 
-Chapter 1. Overview of Red Hat Developer Hub
-Red Hat Developer Hub serves as an (open?) developer platform designed for building developer portals and is based on the backstage project. Using Developer Hub, the engineering teams can access a unified platform that streamlines the development process and provides a variety of tools and resources to build high-quality software efficiently.
-The goal of Developer Hub is to address the difficulties associated with creating and sustaining developer portals using:
-A centralized dashboard to view all available developer tools and resources to increase productivity
-Self-service capabilities, along with guardrails, for cloud-native application development that complies with enterprise-class best practices
-Proper security and governance for all developers across the enterprise
-The Red Hat Developer Hub simplifies decision-making by providing a developer experience that presents a selection of internally approved tools, programming languages, and various developer resources within a self-managed portal. This approach contributes to the acceleration of application development and the maintenance of code quality, all while fostering innovation.
-Administration guide
-Abstract
-Red Hat Developer Hub is an enterprise-grade platform for building developer portals. As an administrative user, you can manage roles and permissions of other users and configure Developer Hub to meet the specific needs of your organization.
-
-Preface
-Red Hat Developer Hub is an enterprise-grade, open developer platform that you can use to build developer portals. This platform contains a supported and opinionated framework that helps reduce the friction and frustration of developers while boosting their productivity.
-Configuring RHDH Plugins
-Abstract
-Red Hat Developer Hub is a developer platform for building developer portals. You can add and configure plugins in Developer Hub to access various software development tools.
-
-Preface
-The Red Hat Developer Hub is an enterprise-grade, integrated developer platform, extended through plugins, that helps reduce the friction and frustration of developers while boosting their productivity.
--------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------
+RHDH enables organizations to:
+Boost developer productivity by reducing obstacles and increasing focus on writing quality code.
+Simplify governance of technology choices through self-service with guardrails.
+Centralize tools, templates, and resources to ensure consistency and scalability.
 
 
-Proposed Discover/About/Overview section
+Key Features and Benefits
 
-Red Hat Developer Hub is a developer platform designed for building developer portals. It is the enterprise-grade, productized version of the upstream backstage project. 
-RHDH simplifies decision-making for engineering teams by providing a streamlined development environment with a centralized software catalog of internally approved tools, programming languages, and various developer resources within a self-managed portal to build high-quality software efficiently. You can configure and customize your Developer Hub instance to meet your needs and preferences.
-This contributes to accelerated application development and maintenance of code quality, all while fostering innovation.
+Centralized Development Platform
+RHDH provides a unified platform that reduces cognitive load and development friction by:
+Offering pre-architected templates to streamline application creation and deployment.
+Centralizing tools, resources, and best practices in a consistent location.
+Accelerating the development process while maintaining code quality and security.
 
-The goal of Developer Hub is to address the difficulties associated with creating and sustaining developer portals using:
-A centralized dashboard to view all available developer tools and resources to increase productivity
-Self-service capabilities, along with guardrails, for cloud-native application development that complies with enterprise-class best practices
-Proper security and governance for all developers across the enterprise
+Enhanced Developer Experience
+Self-Service with Guardrails: Empower teams to build cloud-native applications without being distracted by infrastructure complexities.
+Dynamic Plugins: Add, update, or remove plugins dynamically without downtime, ensuring uninterrupted development.
+Role-Based Access Control (RBAC): Manage user access with granular security permissions tailored to organizational needs.
 
-Benefits of Red Hat Developer Hub include:
-Increased developer productivity: Increases productivity by eliminating common organizational challenges, enabling seamless collaboration, and providing clear guidelines for creating, developing, and deploying applications.
-Unified self-service dashboard: Provides development teams with a unified dashboard covering various aspects such as Git, CI/CD, SAST/DAST, Secure Software Supply Chain, OpenShift/Kubernetes cluster, JIRA, monitoring, API, documentation, and more, facilitated by over 150 plugins. All curated by a platform engineering team, aligning with the company’s best practices. (- Static application security testing (SAST) and dynamic application security testing (DAST) - testing methodologies that help find security vulnerabilities that could leave an organization's applications susceptible to attack.)
-Best practices through software templates: Automates organizational best practices by encoding common tasks such as creating new applications, running Ansible jobs, and establishing CI/CD pipelines for production deployment in Git.
-Scalable technical documentation: Code and documentation resides in the same repository, eliminating dependencies on proprietary document systems.
-Efficient onboarding for new developers: New developers quickly adapt and become productive within a short timeframe.
-Robust enterprise Role-Based Access Control (RBAC): Empowers administrators to create roles, assign users or groups to roles, and implement robust security policies for enhanced access control.
-Dynamic Plugins: You can add and configure plugins in Developer Hub to access various software development tools. Red Hat provides full support for a number of  plugins developed by Red Hat and our partners, and community-support to plugins developed by upstream communities. 
+Integration with Red Hat OpenShift
+Fully integrated with OpenShift for seamless access to technologies like service mesh, GitOps, serverless, and distributed tracing.
+Supported pipelines and GitOps plugins designed to optimize OpenShift integration.
 
-<WIP: Appropriate Title RHDH and other products it connects to provide a portfolio solution>
+Improved Scalability and Configuration Management
+Simplify onboarding for new teams and scale infrastructure as your organization grows.
+Centralize configuration management for synchronized access to tools and documentation.
 
-Red Hat Developer Hub contains a supported and opinionated framework, extended through services, templates, and plugins that help reduce the friction and frustration of developers while boosting their productivity.
+Enterprise-Grade Tools and Support
+Supported and Verified Plugins: Integrate technologies like Tekton, GitOps, Ansible, and JFrog Artifactory with confidence.
+Security and Support: Access robust security resources, patches, and premium support for uninterrupted productivity.
 
-Expand on how RHTAP and RHDH are connected to provide the Trusted Software Supply Chain solution.
-RHDH entry point for RHTAP - Why, how
-RHTAP plugins in RHDH how do they add value to the TSSC solution
 
-Templates and Plugins that expand the value of RHDH - expand on that value add - entry points for developers to add products that are part of their application/dev setup?
-Ansible
-Keycloak? Other Plugin docs we had in RHPIB, who are the owners?
+Additional Capabilities
+
+Software Templates
+RHDH includes prebuilt templates for quickly creating new resources, such as websites, applications, and microservices. These templates:
+Simplify development by automating repetitive tasks.
+Support customization to align with specific organizational needs.
+
+You can install RHTAP to enhance Red Hat Developer Hub (RHDH) by adding secure CI/CD workflows with secure templates. While RHDH focuses on the inner loop (code, build, and test), RHTAP covers the outer loop by automating code scanning, image building, vulnerability scanning, and deployment. 
+
+RHTAP includes tools like Red Hat Trusted Artifact Signer (RHTAS) for code integrity, Red Hat Trusted Profile Analyzer (RHTPA) for automated Software build of Materials (SBOM) creation, and Red Hat Advanced Cluster Security (RHACS) for vulnerability scanning. 
+
+Together RHTAP and RHDH provide an end-to-end solution that simplifies and secures your software development lifecycle.
+
+Extending Backstage Functionality
+RHDH extends the upstream Backstage product by adding:
+Integration with OpenShift for seamless development workflows.
+Enhanced APIs for aggregating data across CI/CD systems, cloud providers, and source control platforms.
+Simplified tech documentation management with Markdown and Git for easy updates.
+
+Featured Plugins and Resources
+A curated ecosystem of open source and enterprise-grade plugins to extend functionality.
+Access to developer resources, articles, and eBooks for insights and best practices.
 
 
 
-Reference: https://developers.redhat.com/rhdh/overview?intcmp=7015Y000003swEuQAI 
+
+Supported Platforms
+Red Hat Developer Hub runs on OpenShift Container Platform 4.14 to 4.16 and supports AMD64 and Intel 64 (x86_64) architectures. Additionally, it’s compatible with the following hosted environments:
+Amazon Elastic Kubernetes Service
+Microsoft Azure Kubernetes Service
+OpenShift Dedicated on Google Cloud Platform
+
+
+
+[role="_additional-resources"]
+== Next steps
+* link:https://docs.redhat.com/en/documentation/red_hat_developer_hub/{product-version}#Install%20and%20Upgrade[{product} Installation and upgrade guides]
+
+[role="_additional-resources"]
+== Additional resources
+
+* link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{rhtap-version}/html/getting_started_with_red_hat_trusted_application_pipeline/index[Getting Started with Red Hat trusted application pipeline]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform[OpenShift documentation]
+
+
+
+
 
 
