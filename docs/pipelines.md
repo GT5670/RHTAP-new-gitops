@@ -1,71 +1,63 @@
 About Red Hat Developer Hub
+Red Hat Developer Hub (RHDH) is an enterprise-grade internal developer portal designed to simplify and enhance software development processes. When combined with Red Hat OpenShift, it enables platform engineering teams to create customized developer portals that maximize developer productivity, ease onboarding, and accelerate application delivery. RHDH reduces friction and frustration for developers, allowing them to focus on writing high-quality code while aligning with organizational best practices.
 
-Red Hat Developer Hub (RHDH) is an enterprise-grade Internal Developer Portal (IDP) designed to streamline application development and foster innovation. Built on the upstream Backstage project, RHDH integrates seamlessly with Red Hat OpenShift to provide platform engineering teams with a centralized, customizable platform. This platform helps reduce developer friction, simplify onboarding, and improve productivity by offering pre-architected, supported approaches and a comprehensive suite of development tools.
+RHDH provides a centralized platform that integrates software templates, pre-architected solutions, and dynamic plugins, offering tailored solutions for operations and development teams within a unified framework.
 
-RHDH enables organizations to:
-Boost developer productivity by reducing obstacles and increasing focus on writing quality code.
-Simplify governance of technology choices through self-service with guardrails.
-Centralize tools, templates, and resources to ensure consistency and scalability.
+Benefits of Red Hat Developer Hub
+For Developers:
 
+Simplified access to tools, resources, and workflows through a centralized dashboard.
+Self-service capabilities with guardrails for cloud-native development.
+Streamlined software and service creation using pre-configured templates.
 
-Key Features and Benefits
+For System Architects:
 
-Centralized Development Platform
-RHDH provides a unified platform that reduces cognitive load and development friction by:
-Offering pre-architected templates to streamline application creation and deployment.
-Centralizing tools, resources, and best practices in a consistent location.
-Accelerating the development process while maintaining code quality and security.
+Tailored platforms with curated tools to support developers efficiently.
+Centralized repositories for consistent configuration management.
+Simplified governance of technology choices and operational processes.
 
-Enhanced Developer Experience
-Self-Service with Guardrails: Empower teams to build cloud-native applications without being distracted by infrastructure complexities.
-Dynamic Plugins: Add, update, or remove plugins dynamically without downtime, ensuring uninterrupted development.
-Role-Based Access Control (RBAC): Manage user access with granular security permissions tailored to organizational needs.
+For Organizations:
 
+Scalability to onboard new teams quickly while maintaining consistency.
+Enhanced security with enterprise-grade Role-Based Access Control (RBAC).
+Cost and time efficiency by mitigating cognitive load and eliminating workflow bottlenecks.
+
+Key Features
+Centralized Dashboard: Provides a single interface for accessing developer tools, CI/CD pipelines, APIs, monitoring tools, and documentation. Integrated with systems like Git, OpenShift, Kubernetes, and JIRA.
+
+Dynamic Plugins: Add, update, or remove plugins dynamically without downtime. Popular plugins like Tekton, GitOps, Nexus Repository, and JFrog Artifactory are supported and verified by Red Hat.
+
+Software Templates: Simplify development processes by automating tasks such as repository setup, variable insertion, and production pipeline creation.
+
+Role-Based Access Control (RBAC): Manage user access with robust security permissions tailored to organizational needs.
+
+Scalability: Support growing teams and applications while maintaining access to the same tools and services.
+
+Configuration Management: Centralized repositories ensure synchronized updates, improving version control and environment configuration.
+
+Integrations in RHDH
 Integration with Red Hat OpenShift
-Fully integrated with OpenShift for seamless access to technologies like service mesh, GitOps, serverless, and distributed tracing.
-Supported pipelines and GitOps plugins designed to optimize OpenShift integration.
+RHDH is fully integrated with Red Hat OpenShift, offering features such as:
 
-Improved Scalability and Configuration Management
-Simplify onboarding for new teams and scale infrastructure as your organization grows.
-Centralize configuration management for synchronized access to tools and documentation.
-
-Enterprise-Grade Tools and Support
-Supported and Verified Plugins: Integrate technologies like Tekton, GitOps, Ansible, and JFrog Artifactory with confidence.
-Security and Support: Access robust security resources, patches, and premium support for uninterrupted productivity.
+Operators to manage application lifecycles.
+Seamless access to OpenShift capabilities, including service mesh, serverless functions, GitOps, and distributed tracing.
+Supported pipelines and GitOps plugins for advanced workflows.
 
 
-Additional Capabilities
-
-Software Templates
-RHDH includes prebuilt templates for quickly creating new resources, such as websites, applications, and microservices. These templates:
-Simplify development by automating repetitive tasks.
-Support customization to align with specific organizational needs.
-
-You can install RHTAP to enhance Red Hat Developer Hub (RHDH) by adding secure CI/CD workflows with secure templates. While RHDH focuses on the inner loop (code, build, and test), RHTAP covers the outer loop by automating code scanning, image building, vulnerability scanning, and deployment. 
+Integration with Red Hat trusted application pipeline
+Installing Red Hat Trusted Application Pipeline (RHTAP) enhances Red Hat Developer Hub (RHDH) by adding secure CI/CD capabilities that integrate security measures into your development process from the start. While RHDH focuses on the inner loop (code, build, and test), RHTAP covers the outer loop by automating code scanning, image building, vulnerability scanning, and deployment. 
 
 RHTAP includes tools like Red Hat Trusted Artifact Signer (RHTAS) for code integrity, Red Hat Trusted Profile Analyzer (RHTPA) for automated Software build of Materials (SBOM) creation, and Red Hat Advanced Cluster Security (RHACS) for vulnerability scanning. 
 
 Together RHTAP and RHDH provide an end-to-end solution that simplifies and secures your software development lifecycle.
 
-Extending Backstage Functionality
-RHDH extends the upstream Backstage product by adding:
-Integration with OpenShift for seamless development workflows.
-Enhanced APIs for aggregating data across CI/CD systems, cloud providers, and source control platforms.
-Simplified tech documentation management with Markdown and Git for easy updates.
+Extending Backstage with RHDH
+RHDH extends the upstream Backstage project by adding:
 
-Featured Plugins and Resources
-A curated ecosystem of open source and enterprise-grade plugins to extend functionality.
-Access to developer resources, articles, and eBooks for insights and best practices.
-
-
-
-
-Supported Platforms
-Red Hat Developer Hub runs on OpenShift Container Platform 4.14 to 4.16 and supports AMD64 and Intel 64 (x86_64) architectures. Additionally, it’s compatible with the following hosted environments:
-Amazon Elastic Kubernetes Service
-Microsoft Azure Kubernetes Service
-OpenShift Dedicated on Google Cloud Platform
-
+Enhanced search capabilities that aggregate data from CI/CD pipelines, cloud providers, source control, and more.
+A centralized software catalog for locating applications, APIs, and resources.
+Automation through open-source plugins that expand Backstage’s core functionality.
+Simplified tech documentation using Markdown and Git, with integrated search for easy navigation.
 
 
 [role="_additional-resources"]
@@ -77,9 +69,3 @@ OpenShift Dedicated on Google Cloud Platform
 
 * link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{rhtap-version}/html/getting_started_with_red_hat_trusted_application_pipeline/index[Getting Started with Red Hat trusted application pipeline]
 * link:https://docs.redhat.com/en/documentation/openshift_container_platform[OpenShift documentation]
-
-
-
-
-
-
