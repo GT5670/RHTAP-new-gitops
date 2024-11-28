@@ -1,71 +1,99 @@
-About Red Hat Developer Hub
-Red Hat Developer Hub (RHDH) is an enterprise-grade internal developer portal designed to simplify and enhance software development processes. When combined with Red Hat OpenShift, it enables platform engineering teams to create customized developer portals that maximize developer productivity, ease onboarding, and accelerate application delivery. RHDH reduces friction and frustration for developers, allowing them to focus on writing high-quality code while aligning with organizational best practices.
+:_mod-docs-content-type: CONCEPT
+[id="con_about-rhtap_{context}"]
 
-RHDH provides a centralized platform that integrates software templates, pre-architected solutions, and dynamic plugins, offering tailored solutions for operations and development teams within a unified framework.
+= About {ProductName}
 
-Benefits of Red Hat Developer Hub
-For Developers:
+Securing your software supply chain is critical to prevent software vulnerabilities. {ProductName} {ProductShortName} embeds security throughout the software development lifecycle (SDLC), enabling teams to innovate confidently while adhering to the highest security standards.
 
-Simplified access to tools, resources, and workflows through a centralized dashboard.
-Self-service capabilities with guardrails for cloud-native development.
-Streamlined software and service creation using pre-configured templates.
+== Overview of {ProductShortName}
 
-For System Architects:
+{ProductShortName} is a DevSecOps framework that integrates security from project inception to production. It incorporates advanced security practices to ensures that your software is resilient to threats while streamlining development processes.
 
-Tailored platforms with curated tools to support developers efficiently.
-Centralized repositories for consistent configuration management.
-Simplified governance of technology choices and operational processes.
+=== Features of {ProductShortName}
 
-For Organizations:
+* *Secure CI/CD pipelines*: Build, test, and deploy container images securely using pre-configured pipelines integrated with your Git repository.
 
-Scalability to onboard new teams quickly while maintaining consistency.
-Enhanced security with enterprise-grade Role-Based Access Control (RBAC).
-Cost and time efficiency by mitigating cognitive load and eliminating workflow bottlenecks.
+* *Ready-to-use templates*: Start project quickly with customizable templates that apply secure development practices.
 
-Key Features
-Centralized Dashboard: Provides a single interface for accessing developer tools, CI/CD pipelines, APIs, monitoring tools, and documentation. Integrated with systems like Git, OpenShift, Kubernetes, and JIRA.
+* *Advanced vulnerability scanning*: Detect and address potential vulnerabilities with detailed insights, including automated generation of Software Bills of Materials (SBOMs).
 
-Dynamic Plugins: Add, update, or remove plugins dynamically without downtime. Popular plugins like Tekton, GitOps, Nexus Repository, and JFrog Artifactory are supported and verified by Red Hat.
+* *Enterprise contract enforcement*: Enforce quality and security rules at every stage of development to maintain compliance.
 
-Software Templates: Simplify development processes by automating tasks such as repository setup, variable insertion, and production pipeline creation.
+=== Technologies in {ProductShortName}
 
-Role-Based Access Control (RBAC): Manage user access with robust security permissions tailored to organizational needs.
+{ProductShortName} integrates with industry-leading platforms and tools:
 
-Scalability: Support growing teams and applications while maintaining access to the same tools and services.
+[cols="1,1"]
+|===
+|Component or Technology |Description
 
-Configuration Management: Centralized repositories ensure synchronized updates, improving version control and environment configuration.
+| {RHDHLongName} ({RHDHShortName}) | A self-service portal that streamlines development and integrates security best practices from the start.
 
-Integrations in RHDH
-Integration with Red Hat OpenShift
-RHDH is fully integrated with Red Hat OpenShift, offering features such as:
+| {RHTASLongName} ({RHTASShortName}) | Enhances software integrity through signature and attestation, ensuring all artifacts are secure and authentic.
 
-Operators to manage application lifecycles.
-Seamless access to OpenShift capabilities, including service mesh, serverless functions, GitOps, and distributed tracing.
-Supported pipelines and GitOps plugins for advanced workflows.
+| {RHTPALongName} ({RHTPAShortName}) | Automates the creation and management of SBOMs, providing transparency and compliance in your software supply chain.
 
+| {RHACSLongName} ({RHACSShortName}) | Automates the scanning of artifacts for vulnerabilities.
 
-Integration with Red Hat trusted application pipeline
-Installing Red Hat Trusted Application Pipeline (RHTAP) enhances Red Hat Developer Hub (RHDH) by adding secure CI/CD capabilities that integrate security measures into your development process from the start. While RHDH focuses on the inner loop (code, build, and test), RHTAP covers the outer loop by automating code scanning, image building, vulnerability scanning, and deployment. 
+| OpenShift GitOps | Manages Kubernetes deployments and infrastructure using Git repositories, ensuring consistent, automated, and secure deployment practices.
 
-RHTAP includes tools like Red Hat Trusted Artifact Signer (RHTAS) for code integrity, Red Hat Trusted Profile Analyzer (RHTPA) for automated Software build of Materials (SBOM) creation, and Red Hat Advanced Cluster Security (RHACS) for vulnerability scanning. 
+| OpenShift Pipelines | Automates the CI/CD processes with visibility and control over build, test, and deployment workflows.
 
-Together RHTAP and RHDH provide an end-to-end solution that simplifies and secures your software development lifecycle.
+| Argo CD | Automates application deployment and lifecycle management, ensuring consistent versions of app definitions, configurations, and environments.
 
-Extending Backstage with RHDH
-RHDH extends the upstream Backstage project by adding:
+|===
 
-Enhanced search capabilities that aggregate data from CI/CD pipelines, cloud providers, source control, and more.
-A centralized software catalog for locating applications, APIs, and resources.
-Automation through open-source plugins that expand Backstage’s core functionality.
-Simplified tech documentation using Markdown and Git, with integrated search for easy navigation.
+=== Flexibility in {ProductShortName}
 
+{ProductShortName} allows flexibility in CI/CD management, source repositories, and artifact registries:
+
+[cols="1,1"]
+
+|===
+|Category |Options
+
+|CI/CD pipelines
+a|* Tekton (Default)
+* Jenkins
+* GitHub Actions
+* Gitlab CI
+
+NOTE: All CI pipelines expect Tekton conform to link:https://slsa.dev/spec/v1.0/levels[SLSA] Build L2. Tekton conforms to Build L3.
+
+|Source repositories
+a|* GitHub (Default)
+* GitLab
+* Bitbucket
+
+|Artifact registries
+a|* Quay (Default)
+* JFrog Artifactory
+|===
+
+=== Target users of {ProductShortName}
+
+{ProductShortName} is designed for platform engineers, application developers, and security teams who aim to enhance the security and efficiency of their software supply chains. It is suitable for organizations establishing a new CI/CD process or optimizing an existing one.
+
+== How {ProductShortName} works
+
+{ProductShortName} secures and streamlines DevSecOps CI/CD workflows by integrating security throughout the development process:
+
+* *Start with secure templates:* Select pre-built templates in {RHDHLongName} {RHDHShortName} to create your application. These templates include code repositories, documentation, and CI/CD pipelines.
+
+* *Develop and modify code:* After creating the application, modify the code. Each code change triggers a pipeline run that performs security checks, including artifact signing, vulnerability scanning, and Software Bill of Materials (SBOM) generation.
+
+* *Managed deployment:* From development to production, {ProductShortName} enforces security policies through Enterprise Contracts (EC), ensuring only compliant builds are deployed.
 
 [role="_additional-resources"]
-== Next steps
-* link:https://docs.redhat.com/en/documentation/red_hat_developer_hub/{product-version}#Install%20and%20Upgrade[{product} Installation and upgrade guides]
+.Next step
+
+* For more information about getting started with {ProductShortName}, see link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html-single/getting_started_with_red_hat_trusted_application_pipeline[Getting Started with {ProductName}].
 
 [role="_additional-resources"]
-== Additional resources
+.Additional Resources
 
-* link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{rhtap-version}/html/getting_started_with_red_hat_trusted_application_pipeline/index[Getting Started with Red Hat trusted application pipeline]
-* link:https://docs.redhat.com/en/documentation/openshift_container_platform[OpenShift documentation]
+* For more information about {RHDHLongName}, see link:https://access.redhat.com/documentation/en-us/red_hat_developer_hub[Red Hat Developer Hub Documentation].
+
+* For more information about {RHTASLongName}, see link:https://access.redhat.com/documentation/en-us/red_hat_trusted_artifact_signer/1/html-single/deployment_guide[Red Hat Trusted Artifact Signer Deployment Guide].
+
+* For more information about {RHTPALongName}, see link:https://access.redhat.com/documentation/en-us/red_hat_trusted_profile_analyzer[Red Hat Trusted Profile Analyzer Documentation].
