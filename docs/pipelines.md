@@ -3,22 +3,33 @@
 [id="post-install"]
 = Post-installation integrations
 
-After installing {ProductShortName}, there are a several scenarios that require you to complete some additional work, to ensure {ProductShortName} functions properly.
+After installing {ProductShortName}, complete the following tasks to ensure that {ProductShortName} works properly.
 
-== (Optional) Integrating Quay into ACS
+== Integrating Quay into ACS (Optional)
 
-Again, if you are using your own instance of Quay, instead of Quay.io, or if you plan to use private repositories in Quay, you must ensure ACS can access your images.
-
-If you integrated your own instance of Quay into {ProductShortName}, or if you want to use private repositories in Quay, then you must now integrate Quay into ACS. This ensures ACS has access to the repositories you use in Quay.  
+If you are using your own Quay instance instead of Quay.io, or if you plan to use private repositories in Quay, then you must integrate Quay into ACS. This ensures ACS has access to the repositories you use in Quay.  
 
 .Procedure
 
-. Go to your instance of ACS. If you did not have ACS prior to installation, then the details you need for access were given in the output of the `rhtap-cli deploy` command. You saved this output in `~/install_values.txt`, near the end of the installation procedure. 
+. Go to your instance of ACS. If you did not have ACS before installing {ProductShortName}, you can find the access details in the `rhtap-cli deploy` command output, which you saved to `~/install_values.txt` at the end of the installation procedure. 
 
-. Follow the instructions in link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_security_for_kubernetes/4.5/html/integrating/integrate-with-image-vulnerability-scanners#integrate-with-qcr-scanner_integrate-with-image-vulnerability-scanners[this document] to integrate Quay into ACS.
+. Follow the instructions in the link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_security_for_kubernetes/4.5/html/integrating/integrate-with-image-vulnerability-scanners#integrate-with-qcr-scanner_integrate-with-image-vulnerability-scanners[Red Hat Advanced Cluster Security for Kubernetes 4.5] documentation to integrate Quay into ACS.
 
-If you integrated Jenkins into {ProductShortName}, configure Jenkins using the Jenkins UI to ensure it can run the build pipelines provided by {ProductShortName}. To configure Jenkins, see [url]
+== Additional integrations
 
-Additionally, if you integrated GitLab into {ProductShortName}, configure GitLab to ensure it can run the build pipelines provided by {ProductShortName}. To configure GitLab, see [url]
+If you integrated other tools into {ProductShortName}, you must configure them so they can run the build pipelines provided by {ProductShortName}:
 
-If you integrated Bitkucket into {ProductShortName}, configure Bitbucket to ensure it can run the build pipelines provided by {ProductShortName}. To configure Bitbucvket, see [url]
+[cols="1,1", options="header"]
+|===
+| If you integrated | Then
+
+| Bitbucket
+| Set up link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_bitbucket_for_security_integrations/index[Bitbucket for security integrations].
+
+| Jenkins
+| Set up link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_jenkins_for_security_integrations/configuring-jenkins-with-the-appropriate-credentials_setting-up-jenkins-for-security-integrations[Jenkins with the relevant credentials].
+
+|===
+
+
+
