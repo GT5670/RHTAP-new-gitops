@@ -1,52 +1,42 @@
-Running with gitlab-runner 17.6.0 (374d34fd)
-  on ccs-data-projects-runner-b48d9895c-f5vns PaE1vzyU, system ID: r_6UNpmpzjLtCd
-Resolving secrets
-Preparing the "kubernetes" executor
-00:00
-Using Kubernetes namespace: opl-ui--pipeline
-Using Kubernetes executor with image registry.redhat.io/ubi8/buildah:latest ...
-Using attach strategy to execute scripts...
-Preparing environment
-00:21
-Using FF_USE_POD_ACTIVE_DEADLINE_SECONDS, the Pod activeDeadlineSeconds will be set to the job timeout: 1h0m0s...
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotInitialized: "containers with incomplete status: [init-permissions]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Waiting for pod opl-ui--pipeline/runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 to be running, status is Pending
-	ContainersNotReady: "containers with unready status: [build helper]"
-	ContainersNotReady: "containers with unready status: [build helper]"
-Running on runner-pae1vzyu-project-83725-concurrent-0-kkmeywc1 via ccs-data-projects-runner-b48d9895c-f5vns...
-Getting source from Git repository
-00:03
-Fetching changes with git depth set to 20...
-Initialized empty Git repository in /builds/ccs-data-projects/opl-ui/.git/
-Created fresh repository.
-Checking out e5238e31 as detached HEAD (ref is master)...
-Skipping Git submodules setup
-Executing "step_script" stage of the job script
-00:01
-$ if [[ -n ${CI_COMMIT_TAG} ]]; then # collapsed multi-line command
-$ buildah --storage-driver=${STORAGE_DRIVER:-vfs} bud ${BUILD_EXTRA_ARGS:-} --format=${IMAGE_FORMAT:-oci} --tls-verify=${TLS_VERIFY:-true} --no-cache -f ${DOCKERFILE:-Dockerfile} -t ${OCI_IMAGE_NAME}:${OCI_IMAGE_TAG:-latest} ${BUILD_CONTEXT:-.}
-time="2024-12-04T12:03:15Z" level=warning msg="Reading allowed ID mappings: reading subuid mappings for user \"1004050000\" and subgid mappings for group \"1004050000\": no subuid ranges found for user \"1004050000\" in /etc/subuid"
-time="2024-12-04T12:03:15Z" level=warning msg="Found no UID ranges set aside for user \"1004050000\" in /etc/subuid."
-time="2024-12-04T12:03:15Z" level=warning msg="Found no GID ranges set aside for user \"1004050000\" in /etc/subgid."
-Error during unshare(CLONE_NEWUSER): Function not implemented
-time="2024-12-04T12:03:15Z" level=error msg="parsing PID \"\": strconv.Atoi: parsing \"\": invalid syntax"
-time="2024-12-04T12:03:15Z" level=error msg="(Unable to determine exit status)"
-Cleaning up project directory and file based variables
-00:00
-ERROR: Job failed: command terminated with exit code 1
+What is Red Hat Trusted Application Pipeline?
+Red Hat® Trusted Application Pipeline helps software development teams enhance security with automatic, integrated checks that catch vulnerabilities early in the software supply chain. Organizations can then curate their own trusted, repeatable pipelines that stay compliant to industry requirements.
+
+Built on proven, trusted open source technologies, Red Hat Trusted Application Pipeline is part of Red Hat Trusted Software Supply Chain, a set of solutions to protect users, customers, and partners from risks and vulnerabilities in their software factory.
+
+
+Red Hat Trusted Application Pipeline overview. Video duration: 2:25
+
+Features and benefits
+Security-first development workspaces
+Boost developer productivity with internal development platforms. Provide self-serve, validated software templates for building and deploying applications that follow defined security practices.
+
+Integrated security checks
+Scan and isolate security issues from existing integrated development environments (IDEs). Help development teams understand the impact of security threats with actionable insights and recommendations. 
+
+SBOM management at scale
+Support a chain of trust across the software life cycle. Provide signed attestation and detailed provenance of software components with an auto generated Software Bill of Materials (SBOM) for each run of the CI/CD pipeline.
+
+Tamper-proof cryptographic signing
+Ensure integrity of software artifacts at every step of the CI/CD workflow. Digitally sign and account for every code submission through a transparent, immutable open source log of all activities.
+
+Security-focused automated workflows
+Verify compliance standards, including Supply chain Levels for Software Artifacts (SLSA) Level 3. Implement user configurable approval gates with vulnerability scanning and policy checking for traceability and visibility.
+
+Red Hat Trusted Application Pipeline includes:
+Red Hat Developer Hub logo
+Red Hat Developer Hub is an open framework for building internal developer platforms.
+
+Learn more
+Red Hat Trusted Profile Analyzer logo
+Red Hat Trusted Profile Analyzer provides visibility into the risk profile of an application’s codebase.
+
+Learn more
+Red Hat Trusted Artifact Signer logo
+Red Hat Trusted Artifact Signer protects the authenticity and integrity of software artifacts.
+
+Learn more
+Red Hat Security spot illustration 
+Continuous, trusted software releases
+Competitive organizations face the challenge of balancing speed and security as they build and release software. Security checks are necessary to stop bad actors from inserting malicious code or exploiting known vulnerabilities. But in complex and fast-moving software development life cycles, development teams don’t always have the time and tools to manually review every component.
+
+Red Hat Trusted Application Pipeline improves the trust and transparency of the CI/CD pipelines, with security-focused golden paths that ensure software adheres to corporate standards. With integrated security checks, software teams can catch vulnerabilities early in the life cycle, delivering valuable new software at scale while improving resiliency and safeguarding user trust.
