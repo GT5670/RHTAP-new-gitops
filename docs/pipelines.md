@@ -11,7 +11,7 @@ If you are using your own Quay instance instead of Quay.io, or if you plan to us
 
 .Procedure
 
-. Go to your instance of ACS. If you did not have ACS before installing {ProductShortName}, you can find the access details in the `rhtap-cli deploy` command output, which you saved to `~/install_values.txt` at the end of the installation procedure. 
+. Go to your ACS instance. If you did not have ACS before installing {ProductShortName}, you can find the access details in the `rhtap-cli deploy` command output, which you saved to `~/install_values.txt` at the end of the installation procedure. 
 
 . Follow the instructions in the link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_security_for_kubernetes/4.5/html/integrating/integrate-with-image-vulnerability-scanners#integrate-with-qcr-scanner_integrate-with-image-vulnerability-scanners[Red Hat Advanced Cluster Security for Kubernetes 4.5] documentation to integrate Quay into ACS.
 
@@ -24,10 +24,10 @@ If you integrated other tools into {ProductShortName}, you must configure them s
 | If you integrated | Then
 
 | Bitbucket
-| Set up link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_bitbucket_for_security_integrations/index[Bitbucket for security integrations].
+| Review the link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_bitbucket_for_security_integrations/index[Setting up Bitbucket for security integrations] guide.
 
 | Jenkins
-| Set up link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_jenkins_for_security_integrations/configuring-jenkins-with-the-appropriate-credentials_setting-up-jenkins-for-security-integrations[Jenkins with the relevant credentials].
+| Review the link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/setting_up_bitbucket_for_security_integrations/index[Setting up Jenkins for security integrations] guide.
 
 |===
 
