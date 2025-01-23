@@ -1,22 +1,64 @@
+= Adding secrets to GitLab for secure integration with external tools
+
+If you select GitLab or GitHub actions as your CI provider when creating an application, you might notice that the pipeline run fails. This failure occurs because the pipeline cannot find the required secrets. Complete the following procedure to add the necessary secrets and resolve the pipeline failure.
+
+.Prerequisites
+
+* You must have the necessary permissions to create and manage GitHub and GitLab jobs and GitLab CI and GitHub Actions variables.
+
+* You must have an image registry (for example, Quay.io) username and password for accessing and pull container images. 
+
+* You must have the following information for specific tasks that you want the GitLab CI to perform:
+
+** For ACS tasks:
+
+*** ROX Central server endpoint and token
+
+** For SBOM tasks:
+
+*** Cosign signing keys password, private key, and public key
+
+*** Trustification URL, client ID, secret, and supported CycloneDX version
+
 .Procedure 
 
-== Adding secrets to GitLab CI using UI
+== Adding secrets using UI
 
-. Log in and navigate to your source repository.
+. For GitLab:
 
-. Expand the *Setting* menu and select *CI/CD*.
+.. Log in and navigate to your source repository.
 
-. In the Variables section, select *Expand*, and then select *Add variable*.
+.. Expand the *Setting* menu and select *CI/CD*.
 
-. Under *Flags*, select the *Mask variable* checkbox.
+.. In the Variables section, select *Expand*, and then select *Add variable*.
 
-. In the *Key* field, enter *MY_GITLAB_TOKEN*.
+.. Under *Flags*, select the *Mask variable* checkbox.
 
-. In the *Value* field, enter the token associated with your GitLab account.
+.. In the *Key* field, enter *MY_GITLAB_TOKEN*.
 
-. Repeat steps 3-6 to add the required variables:
+.. In the *Value* field, enter the token associated with your GitLab account.
 
-+
+.. Repeat steps C through F to add the variables in step 3
+
+. For GitHub:
+
+.. Login and navigate to your GitHub repository.
+
+.. Navigate to the Settings tab.
+
+.. In the left navigation pane, select Secrets and variables, then select Actions.
+
+.. Select new repository secret.
+
+.. In the Name field, enter MY_GITHUB_TOKEN.
+
+.. In the Value field, enter the token associated with your GitHub account.
+
+.. Repeat steps C through F to add the variables in step 3
+
+. Add the following varibales:
+
+
 [cols="1,1", options="header"]
 |===
 
