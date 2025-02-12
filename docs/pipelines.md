@@ -1,17 +1,26 @@
-.Prerequisites
+Before you configure GitLab CI, ensure you have the following:
 
-* You must have admin access to your GitLab repository and CI/CD settings.
+* Admin access to your GitLab repository and CI/CD settings.
 
-* You must have the credentials for your container registry to and pull container images, such as Quay.io, Jfrog Artifactory, or Sonatype Nexus. 
+* Container registry credentials for pulling container images from Quay.io, JFrog Artifactory, or Sonatype Nexus.
 
-* You must have the following information for specific tasks that you want the GitLab CI to perform:
+* Authentication details for specific GitLab CI tasks:
 
-** For ACS tasks:
+** For ACS security tasks:
 
-*** ROX Central server endpoint and token
+*** ROX Central server endpoint
+*** ROX API token
 
-** For SBOM tasks:
+** For SBOM and artifact signing tasks:
 
-*** Cosign signing keys password, private key, and public key
+*** Cosign signing key password
+*** Private key and public key
+*** Trustification URL
+*** Client ID and secret
+*** Supported CycloneDX version
 
-*** Trustification URL, client ID, secret, and supported CycloneDX version
++
+[NOTE]
+====
+The credentials and other details are already Base64-encoded, so you do not need to convert them. You can find these credentials in your `private.env` file, the file that you created at the time of installing {ProductShortName}. 
+====
