@@ -1,16 +1,8 @@
-{% extends 'base.html' %}
+CI/CD pipelines automate software delivery, but issing secrets can cause CI/CD pipeline failures, preventing successful deployments. GitLab CI requires securely stored secrets:
 
-{% block heading %}
+🔹 Secure secrets management – Avoid exposing sensitive credentials in pipelines.
+🔹 Automated security checks – ed Hat Advanced Cluster Security (ACS) Includes vulnerability scanning, image signing, and attestation generation.
+🔹 Seamless integration with DevOps tools – Supports Quay, JFrog Artifactory, Nexus, and OpenShift GitOps.
 
-<section class="pf-v5-c-page__main-section pf-m-limit-width pf-m-light">
-    <div class="pf-v5-c-page__main-body">
-        <div class="pf-v5-c-content">
-            <h1>Red Hat official product list</h1>
-            <p>The official Red Hat product names list (OPL) documents Brand- and Legal-approved names<br>
-            for Red Hat products, services, operators, components, features, portals, tools, and<br>
-            programs, determined in coordination with product teams and business units.</p>
-        </div>
-    </div>
-</section>
 
-{% endblock %}
+This guide walks you through securely adding secrets to GitLab CI to enable automated security scanning, image signing, and attestation generation.
