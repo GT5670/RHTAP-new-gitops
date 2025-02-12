@@ -1,8 +1,17 @@
-CI/CD pipelines automate software delivery, but issing secrets can cause CI/CD pipeline failures, preventing successful deployments. GitLab CI requires securely stored secrets:
+.Prerequisites
 
-🔹 Secure secrets management – Avoid exposing sensitive credentials in pipelines.
-🔹 Automated security checks – ed Hat Advanced Cluster Security (ACS) Includes vulnerability scanning, image signing, and attestation generation.
-🔹 Seamless integration with DevOps tools – Supports Quay, JFrog Artifactory, Nexus, and OpenShift GitOps.
+* You must have admin access to your GitLab repository and CI/CD settings.
 
+* You must have the credentials for your container registry to and pull container images, such as Quay.io, Jfrog Artifactory, or Sonatype Nexus. 
 
-This guide walks you through securely adding secrets to GitLab CI to enable automated security scanning, image signing, and attestation generation.
+* You must have the following information for specific tasks that you want the GitLab CI to perform:
+
+** For ACS tasks:
+
+*** ROX Central server endpoint and token
+
+** For SBOM tasks:
+
+*** Cosign signing keys password, private key, and public key
+
+*** Trustification URL, client ID, secret, and supported CycloneDX version
