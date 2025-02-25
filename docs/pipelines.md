@@ -1,75 +1,220 @@
-:_mod-docs-content-type: PROCEDURE
+= Enabling the Argo CD plugin
 
-[id="customizing-sample-pipelines_{context}"]
-= Customizing sample pipelines
-
-Learn how to update Pipeline as Code (`pac`) URLs within the sample templates repository and to customize the sample pipelines repository to your workflow. By customizing `pac` URLs, organizations can leverage specific pipelines tailored to their needs.
+You can use the Argo CD plugin to visualize the Continuous Delivery (CD) workflows in OpenShift GitOps. This plugin provides a visual overview of the application’s status, deployment details, commit message, author of the commit, container image promoted to environment and deployment history.
 
 .Prerequisites
 
-* You have already forked and cloned the following templates locally:
+* Add Argo CD instance information to your `app-config.yaml` configmap as shown in the following example:
 
-** link:https://github.com/redhat-appstudio/tssc-sample-pipelines[Sample pipelines]
++
+[source,yaml]
+----
+argocd:
+  appLocatorMethods:
+    - type: 'config'
+      instances:
+        - name: argoInstance1
+          url: https://argoInstance1.com
+          username: ${ARGOCD_USERNAME}
+          password: ${ARGOCD_PASSWORD}
+        - name: argoInstance2
+          url: https://argoInstance2.com
+          username: ${ARGOCD_USERNAME}
+          password: ${ARGOCD_PASSWORD}
+----
 
-** link:https://github.com/redhat-appstudio/tssc-sample-templates[Sample templates]
+* Add the following annotation to the entity’s `catalog-info.yaml` file to identify the Argo CD applications.
 
-* You must ensure your forked version is up to date and in sync with the upstream repository.
++
+[source,yaml]
+----
+annotations:
+  ...
+  # The label that Argo CD uses to fetch all the applications. The format to be used is label.key=label.value. For example, rht-gitops.com/janus-argocd=quarkus-app.
 
+  argocd/app-selector: '${ARGOCD_LABEL_SELECTOR}' 
+----
 
-[discrete]
-== Customizing the sample templates repository to update `pac` URLs*
+* (Optional) Add the following annotation to the entity’s `catalog-info.yaml` file to switch between Argo CD instances as shown in the following example:
+
++
+[source,yaml]
+----
+ annotations:
+   ...
+    # The Argo CD instance name used in `app-config.yaml`.
+
+    argocd/instance-name: '${ARGOCD_INSTANCE}' 
+----
+
++
+[NOTE]
+====
+If you do not set this annotation, the Argo CD plugin defaults to the first Argo CD instance configured in `app-config.yaml`.
+====
 
 .Procedure
 
-. Access forked sample pipelines repository URL:
+. Add the following to your dynamic-plugins ConfigMap to enable the Argo CD plugin.
++
+[source,yaml]
+----
+global:
+  dynamic:
+    includes:
+      - dynamic-plugins.default.yaml
+    plugins:
+      - package: ./dynamic-plugins/dist/roadiehq-backstage-plugin-argo-cd-backend-dynamic
+        disabled: false
+      - package: ./dynamic-plugins/dist/backstage-community-plugin-redhat-argocd
+        disabled: false
+----
 
-.. Open your forked sample pipelines repository.
+== Enabling Argo CD Rollouts
 
-.. Copy the complete URL from the address bar. For example, https://github.com/<username>/tssc-sample-pipelines.
+The optional Argo CD Rollouts feature enhances Kubernetes by providing advanced deployment strategies, such as blue-green and canary deployments, for your applications. When integrated into the backstage Kubernetes plugin, it allows developers and operations teams to visualize and manage Argo CD Rollouts seamlessly within the Backstage interface.
 
-. Update `pac` URLs in the sample templates repository:
+.Prerequisites
 
-.. Navigate to your local cloned sample templates repository using your terminal.
+* The Backstage Kubernetes plugin (`@backstage/plugin-kubernetes`) is installed and configured. 
 
-.. Run the following command, replacing {fork_url} with the copied URL from step 1 and {branch_name} with your desired branch name (for example, main):
+** To install and configure Kubernetes plugin in Backstage, see link:https://backstage.io/docs/features/kubernetes/installation/[Installaltion] and link:https://backstage.io/docs/features/kubernetes/configuration/[Configuration] guide.
 
+* You have access to the Kubernetes cluster with the necessary permissions to create and manage custom resources and `ClusterRoles`.
+
+* The Kubernetes cluster has the `argoproj.io` group resources (for example, Rollouts and AnalysisRuns) installed.
+
+.Procedure
+
+. In the `app-config.yaml` file in your Backstage instance, add the following `customResources` component under the `kubernetes` configuration to enable Argo Rollouts and AnalysisRuns:
+
++
+[source,yaml]
+----
+kubernetes:
+  ...
+  customResources:
+    - group: 'argoproj.io'
+      apiVersion: 'v1alpha1'
+      plural: 'Rollouts'
+    - group: 'argoproj.io'
+      apiVersion: 'v1alpha1'
+      plural: 'analysisruns'
+----
+
+. Assign `ClusterRole` permissions for custom resources.
++
+[NOTE]
+====
+* If the Backstage Kubernetes plugin is already configured, the `ClusterRole` permissions for `Rollouts` and `AnalysisRuns` might already be granted.
+
+* Use a link:https://raw.githubusercontent.com/backstage/community-plugins/main/workspaces/redhat-argocd/plugins/argocd/manifests/clusterrole.yaml[prepared manifest] for a read-only `ClusterRole` that provides access for both the Kubernetes plugin and the ArgoCD plugin.
+====
+
+.. If the `ClusterRole` permission is not granted, use the following YAML manifest to create the `ClusterRole`:
+
++
+[source,yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: backstage-read-only
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - Rollouts
+      - analysisruns
+    verbs:
+      - get
+      - list
+----
+
+.. Apply the manifest to the cluster using `kubectl`:
 +
 [source,bash]
 ----
-./scripts/update-tekton-definition {fork_url} {branch_name}
-
-# For example, .scripts/update-tekton-definition https://github.com/<username>/tssc-sample-pipelines main
+kubectl apply -f <your-clusterrole-file>.yaml
 ----
 
-. Review, commit, and push changes:
+.. Ensure the `ServiceAccount` accessing the cluster has this `ClusterRole` assigned.
 
-.. Review the updated files within your sample templates repository.
+. Add annotations to `catalog-info.yaml` to identify Kubernetes resources for Backstage.
 
-.. Commit the changes with appropriate message.
+.. For identifying resources by entity ID:
++
+[source,yaml]
+----
+annotations:
+  ...
+  backstage.io/kubernetes-id: <BACKSTAGE_ENTITY_NAME>
+----
 
-.. Push the committed changes to your forked repository.
+.. (Optional) For identifying resources by namespace:
++
+[source,yaml]
+----
+annotations:
+  ...
+  backstage.io/kubernetes-namespace: <RESOURCE_NAMESPACE>
+----
 
+.. For using custom label selectors, which override resource identification by entity ID or namespace:
++
+[source,yaml]
+----
+annotations:
+  ...
+  backstage.io/kubernetes-label-selector: 'app=my-app,component=front-end'
+----
++
+[NOTE]
+====
+Ensure you specify the labels declared in `backstage.io/kubernetes-label-selector` on your Kubernetes resources. This annotation overrides entity-based or namespace-based identification annotations, such as `backstage.io/kubernetes-id` and `backstage.io/kubernetes-namespace`.
+====
 
-[discrete]
-== Customizing the sample pipelines repository to your workflow
+. Add label to Kubernetes resources to enable Backstage to find the appropriate Kubernetes resources.
 
-The sample pipelines repository provides a foundation upon which you can build your organization's specific CI/CD workflows. The sample pipelines repository includes several key pipeline templates in the `pac` directory:
+.. Backstage Kubernetes plugin label: Add this label to map resources to specific Backstage entities.
++
+[source,yaml]
+----
+labels:
+  ...
+  backstage.io/kubernetes-id: <BACKSTAGE_ENTITY_NAME>
+----
 
-* *`gitops-repo`:* This directory holds the pipeline definitions for validating pull requests within your GitOps repository. It triggers the `gitops-pull-request` pipeline, located in the `pipelines` directory, validating that image updates comply with organizational standards. This setup is crucial for promotion workflows, where an application's deployment state is advanced sequentially through environments, such as from development to staging or from staging to production. For more information about pipeline definitions in `gitops-repo`, refer link:https://github.com/redhat-appstudio/tssc-sample-pipelines/blob/main/pac/gitops-repo/README.md[Gitops Pipelines].
+.. GitOps application mapping: Add this label to map Argo CD Rollouts to a specific GitOps application
++
+[source,yaml]
+----
+labels:
+  ...
+  app.kubernetes.io/instance: <GITOPS_APPLICATION_NAME>
+----
 
-* *`pipelines`:* This directory houses the implementations of build and validation pipelines that are referenced by the event handlers in both the `gitops-repo` and `source-repo`. By examining the contents of this directory, you can understand the specific actions performed by the pipelines, including how they contribute to the secure promotion and deployment of applications.
-
-* *`source-repo`*: This directory focuses on Dockerfile-based secure supply chain software builds. It includes pipeline definitions for cloning the source, generating and signing artifacts (such as `.sig` for image signature, `.att` for attestation, and `.sbom` for Software Bill of Materials), and pushing these to the user's image registry. For more information about pipeline definitions in `source-repo`, refer link:https://github.com/redhat-appstudio/tssc-sample-pipelines/blob/main/pac/source-repo/README.md[Shared Git resolver model for shared pipeline and tasks].
-
-* *`tasks`:* This directory houses a collection of tasks that can be added or modified, aligning with organizational needs. For example, Advanced Cluster Security (ACS) tasks can be substituted with alternative checks, or entirely new tasks can be integrated into the pipeline to enhance its functionality and compliance.
++
+[NOTE]
+====
+If using the label selector annotation (backstage.io/kubernetes-label-selector), ensure the specified labels are present on the resources. The label selector will override other annotations like kubernetes-id or kubernetes-namespace.
+====
 
 .Verification
 
-* Consider creating an application to explore the impact of your template and pipeline customization.
+. Push code changes to your GitOps repository to trigger a deployment.
+
+. Open the Backstage interface and navigate to the entity you configured.
+
+. Confirm that the Argo CD Rollouts feature is functioning as expected by performing the following checks:
+
+** Kubernetes resources, such as `Rollouts` and `AnalysisRuns`, are visible under the *Kubernetes* tab.
+
+** You are able to monitor `Rollouts` status and manage deployments.
 
 [role="_additional-resources"]
 .Additional resources
 
-* To customize templates, see xref:customizing-sample-software-templates_{context}[Customizing sample software templates]
+* The package path, scope, and name of the {company-name} ArgoCD plugin has changed since 1.2. For more information, see link:{release-notes-url}#removed-functionality-rhidp-4293[Breaking Changes] in the _{rn-product-title}_. 
 
-* For information on Pipeline as code, refer link:https://docs.redhat.com/documentation/red_hat_openshift_pipelines/{OSPipelinesVersion}/html/pipelines_as_code/about-pipelines-as-code[About Pipelines as Code].
+* For more information on installing dynamic plugins, see link:{installing-and-viewing-dynamic-plugins-url}[{installing-and-viewing-dynamic-plugins-title}].
