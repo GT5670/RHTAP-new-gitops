@@ -1,220 +1,26 @@
-= Enabling the Argo CD plugin
+Technically it is backstage interface, but since we are documenting this for RHDH, IMO we should use RHDH instead of vanilla backstage
+:+1:
+1
 
-You can use the Argo CD plugin to visualize the Continuous Delivery (CD) workflows in OpenShift GitOps. This plugin provides a visual overview of the application’s status, deployment details, commit message, author of the commit, container image promoted to environment and deployment history.
 
-.Prerequisites
 
-* Add Argo CD instance information to your `app-config.yaml` configmap as shown in the following example:
 
-+
-[source,yaml]
-----
-argocd:
-  appLocatorMethods:
-    - type: 'config'
-      instances:
-        - name: argoInstance1
-          url: https://argoInstance1.com
-          username: ${ARGOCD_USERNAME}
-          password: ${ARGOCD_PASSWORD}
-        - name: argoInstance2
-          url: https://argoInstance2.com
-          username: ${ARGOCD_USERNAME}
-          password: ${ARGOCD_PASSWORD}
-----
+  4:08 PM
+This - Open the Backstage interface and navigate to the entity you configured.
+To this - Open the RHDH interface and navigate to the entity you configured.
+:+1:
+1
 
-* Add the following annotation to the entity’s `catalog-info.yaml` file to identify the Argo CD applications.
 
-+
-[source,yaml]
-----
-annotations:
-  ...
-  # The label that Argo CD uses to fetch all the applications. The format to be used is label.key=label.value. For example, rht-gitops.com/janus-argocd=quarkus-app.
 
-  argocd/app-selector: '${ARGOCD_LABEL_SELECTOR}' 
-----
 
-* (Optional) Add the following annotation to the entity’s `catalog-info.yaml` file to switch between Argo CD instances as shown in the following example:
-
-+
-[source,yaml]
-----
- annotations:
-   ...
-    # The Argo CD instance name used in `app-config.yaml`.
-
-    argocd/instance-name: '${ARGOCD_INSTANCE}' 
-----
-
-+
-[NOTE]
-====
-If you do not set this annotation, the Argo CD plugin defaults to the first Argo CD instance configured in `app-config.yaml`.
-====
-
-.Procedure
-
-. Add the following to your dynamic-plugins ConfigMap to enable the Argo CD plugin.
-+
-[source,yaml]
-----
-global:
-  dynamic:
-    includes:
-      - dynamic-plugins.default.yaml
-    plugins:
-      - package: ./dynamic-plugins/dist/roadiehq-backstage-plugin-argo-cd-backend-dynamic
-        disabled: false
-      - package: ./dynamic-plugins/dist/backstage-community-plugin-redhat-argocd
-        disabled: false
-----
-
-== Enabling Argo CD Rollouts
-
-The optional Argo CD Rollouts feature enhances Kubernetes by providing advanced deployment strategies, such as blue-green and canary deployments, for your applications. When integrated into the backstage Kubernetes plugin, it allows developers and operations teams to visualize and manage Argo CD Rollouts seamlessly within the Backstage interface.
-
-.Prerequisites
-
-* The Backstage Kubernetes plugin (`@backstage/plugin-kubernetes`) is installed and configured. 
-
-** To install and configure Kubernetes plugin in Backstage, see link:https://backstage.io/docs/features/kubernetes/installation/[Installaltion] and link:https://backstage.io/docs/features/kubernetes/configuration/[Configuration] guide.
-
-* You have access to the Kubernetes cluster with the necessary permissions to create and manage custom resources and `ClusterRoles`.
-
-* The Kubernetes cluster has the `argoproj.io` group resources (for example, Rollouts and AnalysisRuns) installed.
-
-.Procedure
-
-. In the `app-config.yaml` file in your Backstage instance, add the following `customResources` component under the `kubernetes` configuration to enable Argo Rollouts and AnalysisRuns:
-
-+
-[source,yaml]
-----
-kubernetes:
-  ...
-  customResources:
-    - group: 'argoproj.io'
-      apiVersion: 'v1alpha1'
-      plural: 'Rollouts'
-    - group: 'argoproj.io'
-      apiVersion: 'v1alpha1'
-      plural: 'analysisruns'
-----
-
-. Assign `ClusterRole` permissions for custom resources.
-+
-[NOTE]
-====
-* If the Backstage Kubernetes plugin is already configured, the `ClusterRole` permissions for `Rollouts` and `AnalysisRuns` might already be granted.
-
-* Use a link:https://raw.githubusercontent.com/backstage/community-plugins/main/workspaces/redhat-argocd/plugins/argocd/manifests/clusterrole.yaml[prepared manifest] for a read-only `ClusterRole` that provides access for both the Kubernetes plugin and the ArgoCD plugin.
-====
-
-.. If the `ClusterRole` permission is not granted, use the following YAML manifest to create the `ClusterRole`:
-
-+
-[source,yaml]
-----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: backstage-read-only
-rules:
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - Rollouts
-      - analysisruns
-    verbs:
-      - get
-      - list
-----
-
-.. Apply the manifest to the cluster using `kubectl`:
-+
-[source,bash]
-----
-kubectl apply -f <your-clusterrole-file>.yaml
-----
-
-.. Ensure the `ServiceAccount` accessing the cluster has this `ClusterRole` assigned.
-
-. Add annotations to `catalog-info.yaml` to identify Kubernetes resources for Backstage.
-
-.. For identifying resources by entity ID:
-+
-[source,yaml]
-----
-annotations:
-  ...
-  backstage.io/kubernetes-id: <BACKSTAGE_ENTITY_NAME>
-----
-
-.. (Optional) For identifying resources by namespace:
-+
-[source,yaml]
-----
-annotations:
-  ...
-  backstage.io/kubernetes-namespace: <RESOURCE_NAMESPACE>
-----
-
-.. For using custom label selectors, which override resource identification by entity ID or namespace:
-+
-[source,yaml]
-----
-annotations:
-  ...
-  backstage.io/kubernetes-label-selector: 'app=my-app,component=front-end'
-----
-+
-[NOTE]
-====
-Ensure you specify the labels declared in `backstage.io/kubernetes-label-selector` on your Kubernetes resources. This annotation overrides entity-based or namespace-based identification annotations, such as `backstage.io/kubernetes-id` and `backstage.io/kubernetes-namespace`.
-====
-
-. Add label to Kubernetes resources to enable Backstage to find the appropriate Kubernetes resources.
-
-.. Backstage Kubernetes plugin label: Add this label to map resources to specific Backstage entities.
-+
-[source,yaml]
-----
-labels:
-  ...
-  backstage.io/kubernetes-id: <BACKSTAGE_ENTITY_NAME>
-----
-
-.. GitOps application mapping: Add this label to map Argo CD Rollouts to a specific GitOps application
-+
-[source,yaml]
-----
-labels:
-  ...
-  app.kubernetes.io/instance: <GITOPS_APPLICATION_NAME>
-----
-
-+
-[NOTE]
-====
-If using the label selector annotation (backstage.io/kubernetes-label-selector), ensure the specified labels are present on the resources. The label selector will override other annotations like kubernetes-id or kubernetes-namespace.
-====
-
-.Verification
-
-. Push code changes to your GitOps repository to trigger a deployment.
-
-. Open the Backstage interface and navigate to the entity you configured.
-
-. Confirm that the Argo CD Rollouts feature is functioning as expected by performing the following checks:
-
-** Kubernetes resources, such as `Rollouts` and `AnalysisRuns`, are visible under the *Kubernetes* tab.
-
-** You are able to monitor `Rollouts` status and manage deployments.
-
-[role="_additional-resources"]
-.Additional resources
-
-* The package path, scope, and name of the {company-name} ArgoCD plugin has changed since 1.2. For more information, see link:{release-notes-url}#removed-functionality-rhidp-4293[Breaking Changes] in the _{rn-product-title}_. 
-
-* For more information on installing dynamic plugins, see link:{installing-and-viewing-dynamic-plugins-url}[{installing-and-viewing-dynamic-plugins-title}].
+  4:10 PM
+Yeah, what is used in other places RHDH or Developer Hub
+4:10
+?
+4:10
+I have a comment on the Verification section
+4:12
+in that section, you have mentioned about using Kubernetes tab to see the rollouts & analysisruns, which is also correct but it is not related to redhat-argocd plugin
+4:13
+Our verification should be something like, once the user does some changes in the gitops repository then rollout and analysisrun information should be visible in the resources table in redhat-argocd plugin's side panel
