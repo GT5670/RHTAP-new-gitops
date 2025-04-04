@@ -1,129 +1,95 @@
-[cols="1,1", options="header"]
-|===
+:_mod-docs-content-type: PROCEDURE
+:azure: 
 
-| Variable | Description
+[id="adding-secrets-to-azure-pipeline-for-secure-integration-with-external-tools_{context}"]
+= Adding secrets to Azure Pipeline for secure integration with external tools
 
-2+| *Provide image registry credentials for only one image registry.*
+.Prerequisites
 
-| `QUAY_IO_CREDS_USR`
-| Username for accessing Quay.io repository.
+Before you configure Azure Pipeline, ensure you have the following:
 
-| `QUAY_IO_CREDS_PSW`
-| Password for accessing Quay.io repository.
+* *Admin* access to your repository in Bitbucket, GitHub, and GitLab.
 
-| `ARTIFACTORY_IO_CREDS_USR`
-| Username for accessing JFrog Artifactory repository.
+* *Admin* access to your Azure pipeline settings.
 
-| `ARTIFACTORY_IO_CREDS_PSW`
-| Password for accessing JFrog Artifactory repository.
+* *Container registry credentials* for pulling container images from Quay.io, JFrog Artifactory, or Sonatype Nexus.
 
-| `NEXUS_IO_CREDS_USR`
-| Username for accessing Sonatype Nexus repository.
+* *Authentication details* for specific Azure Pipeline tasks:
 
-| `NEXUS_IO_CREDS_PSW`
-| Password for accessing Sonatype Nexus repository.
+** *For ACS security tasks*:
 
-// Conditional definitions for Jenkins
+*** ROX Central server endpoint
+*** ROX API token
 
-ifdef::jenkins[]
+** *For SBOM and artifact signing tasks*:
 
-2+| *Set these variables if Jenkins runs on a non-local OpenShift instance, and the Rekor and TUF services are on different clusters.*
-| `REKOR_HOST`
-| URL of your Rekor server.
+*** Cosign signing key password
+*** Private key and public key
+*** Trustification URL
+*** Client ID and secret
+*** Supported CycloneDX version
 
-| `TUF_MIRROR`
-| URL of your TUF service.
++
+[NOTE]
+====
+The credentials and other details are already Base64-encoded, so you do not need to encode them again. You can find these credentials in your `private.env` file, which you created during {ProductShortName} installation. 
+====
 
-2+| *GitOps configuration for Jenkins*
+.Procedure 
 
-| `GITOPS_AUTH_PASSWORD`  
-| The token the system uses to update the GitOps repository for newly built images.
+== Option 1: Using Azure UI
 
-| `GITOPS_AUTH_USERNAME` (optional)  
+. Log in to Azure and open your Azure DevOps project.
 
-| The parameter required for Jenkins to work with GitLab.
-You also need to uncomment a line with this parameter in a Jenkinsfile: GITOPS_AUTH_USERNAME = credentials('GITOPS_AUTH_USERNAME'). By default, this line is commented out.
+. In the left navigation panel, click *Pipelines*, and then click *Library*.
 
-endif::jenkins[]
+. Click **+ Variable group** to create a new variable group.
 
-// Conditional definitions for GitLab CI
+. Enter a name for the variable group, for example, `azure-pipeline-secrets`.
 
-ifdef::gitlab[]
+. In the variable group editor:
 
-2+| *Set these variables if Gitlab CI runners do not run on the same cluster as the {ProductShortName} instance.*
-| `REKOR_HOST`
-| URL of your Rekor server.
+.. Click **+ Add** to add a new variable.
 
-| `TUF_MIRROR`
-| URL of your TUF service.
+.. In the **Name** field, enter the key, for example, `MY_GITLAB_TOKEN`.
 
-2+| *GitOps configuration for GitLab*
+.. In the *Value* field, enter the link:https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[token] associated with your GitLab account.
 
-| `GITOPS_AUTH_PASSWORD`  
-| The token the system uses to update the GitOps repository for newly built images.
+.. Select the **Keep this value secret** checkbox to mask the value.
 
-| `GITOPS_AUTH_USERNAME` (optional)  
+. Repeat steps 3-4 to add the required variables:
 
-| The parameter required for GitLab to work with Jenkins.
-You also need to uncomment a line with this parameter in a Jenkinsfile: GITOPS_AUTH_USERNAME = credentials('GITOPS_AUTH_USERNAME'). By default, this line is commented out.
++
+include::../snippets/gitlab_github_variables/ui_variables.adoc[]
 
-endif::[]
 
-// Conditional definitions for GitHub Actions
+. Click **Save**.
 
-ifdef::github[]
+. To authorize pipelines to use the variable group:
+.. Click the **Pipeline permissions** tab in the same view.
 
-2+| *Set these variables if GitHub Actions runners do not run on the same cluster as the {ProductShortName} instance.*
-| `REKOR_HOST`
-| URL of your Rekor server.
+.. Click **+ Add pipeline**.
 
-| `TUF_MIRROR`
-| URL of your TUF service.
+.. Select the pipelines that require access to this variable group.
 
-2+| *GitOps configuration for GitHub*
+. In your pipeline YAML file, include the variable group:
++
+[source,yaml]
+----
+variables:
+- group: azure-pipeline-secrets
+----
 
-| `GITOPS_AUTH_PASSWORD`  
-| The token the system uses to update the GitOps repository for newly built images.
+. Reference the variables in your steps using Azure DevOps syntax. For example:
++
+[source,yaml]
+----
+steps:
+- script: echo "Using GitLab token"
+  env:
+    GITLAB_TOKEN: $(GITLAB_TOKEN)
+----
 
-| `GITOPS_AUTH_USERNAME` (optional)  
+. Rerun the last pipeline run to verify the secrets are applied correctly.
 
-| The parameter required for Jenkins to work with GitHub. 
-You also need to uncomment a line with this parameter in a Jenkinsfile: GITOPS_AUTH_USERNAME = credentials('GITOPS_AUTH_USERNAME'). By default, this line is commented out.
-
-endif::github[]
-
-2+| *Variable required for ACS tasks.* 
-
-| `ROX_CENTRAL_ENDPOINT`
-| Endpoint for the ROX Central server.
-
-| `ROX_API_TOKEN`
-| API token for accessing the ROX server.
-
-2+| *Variables required for SBOM tasks.*
-
-| `COSIGN_SECRET_PASSWORD`
-| Password for Cosign signing key.
-
-| `COSIGN_SECRET_KEY`
-| Private key for Cosign.
-
-| `COSIGN_PUBLIC_KEY`
-| Public key for Cosign.
-
-| `TRUSTIFICATION_BOMBASTIC_API_URL`
-| URL for Trustification Bombastic API used in SBOM generation.
-
-| `TRUSTIFICATION_OIDC_ISSUER_URL`
-| OIDC issuer URL used for authentication when interacting with the Trustification Bombastic API.
-
-| `TRUSTIFICATION_OIDC_CLIENT_ID`
-| Client ID for authenticating to the Trustification Bombastic API using OIDC.
-
-| `TRUSTIFICATION_OIDC_CLIENT_SECRET`
-| Client secret used alongside the client ID to authenticate to the Trustification Bombastic API.
-
-| `TRUSTIFICATION_SUPPORTED_CYCLONEDX_VERSION`
-| Specifies the CycloneDX SBOM version that is supported and generated by the system.
-
-|===
+. Alternatively, switch to your application's source repository in Azure DevOps, make a minor change, and commit it to trigger a new pipeline run.
