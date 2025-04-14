@@ -1,45 +1,125 @@
-:_newdoc-version: 2.18.3
-:_template-generated: 2025-04-14
 :_mod-docs-content-type: PROCEDURE
 
-[id="integrating-azure-pipelines_{context}"]
-= Integrating Azure Pipelines
+[id="integrating-github_{context}"]
+= Integrate GitHub with {ProductShortName}
 
-If you want to integrate Azure with {ProductName}, complete the steps in the following procedure.
+{ProductShortName} uses GitHub to authenticate users and to create and manage application repositories. Before you install {ProductShortName}, you must configure GitHub to support these capabilities.
+
+To enable GitHub integration, complete the following procedures:
+
+. Create a GitHub personal access token.
+. Create a GitHub application.
+. (Optional) Fork the software catalog repository.
+
+[discrete]
+== Create a GitHub personal access token
+
+You must own a GitHub organization before you create a personal access token.
+
+You can use an existing GitHub organization, create a new one, or request ownership of an existing organization from its current administrators.
+
+After installation, this GitHub organization provides a location where users can generate repositories for their applications.
+
+You must create a personal access token (PAT) to complete the next procedure.
 
 .Prerequisites
 
-* You must have the necessary permissions in your Azure subscription to register applications and manage API permissions.
-
-* You must register a personal access token (PAT). For detailed steps, see https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops[How to generate personal access tokens in Azure DevOps].
-
-
-* You must collect the following values:
-
-** `AZURE_ORGANIZATION`: The name of your Azure DevOps organization. For example, `my-org-name`.
-
-** `AZURE_HOST_URL`: The base URL of your Azure DevOps environment. The default is `dev.azure.com`.
-
-* Optional values, required only if you authenticate using a registered Azure Active Directory (AAD) application:
-
-** `AZURE_TENANT_ID`: The Directory (tenant) ID. See https://learn.microsoft.com/en-us/partner-center/find-ids-and-domain-names[Find your tenant ID].
-
-** `AZURE_CLIENT_ID`: The Application (client) ID. See https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app[Register an application with the Microsoft identity platform].
-
-** `AZURE_CLIENT_SECRET`: The client secret generated in the AAD app. See https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps#create-a-client-secret[Create a client secret].
+* Ownership of a GitHub organization
 
 .Procedure
 
-. In your `rhtap-cli` container, run the integration command after replacing the placeholder values with your Azure DevOps credentials. Additionally, if you are using the default host (`https://dev.azure.com`), you can omit the `--host` option.
+. Go to your link:https://github.com/settings/apps[Developer settings] page on GitHub.
+
+. In the left navigation panel, under *Personal access tokens*, click *Tokens (classic)*.
+
+. From the *Generate new token* dropdown menu, select *Generate new token (classic)*. Authenticate if prompted.
+
+. Enter a name, select an expiration date, and under *Select scopes*, select *repo*. This automatically includes all scopes from `repo:status` to `security_events`.
+
+. Click *Generate token*. GitHub redirects you to a new page where your token is displayed.
+
+. Create a file named `private.env`, and save the token in that file.
++
+[NOTE]
+====
+The `private.env` file is required for a successful installation. Save this file in a secure location.
+====
+
+[discrete]
+== Create a GitHub application
+
+Creating a GitHub application for {ProductShortName} allows developers to authenticate to Red Hat Developer Hub, the web-based interface for interacting with {ProductShortName}. It also allows {ProductShortName} to access your GitHub organization and create repositories.
+
+You must create and install this application in the same GitHub organization that you plan to use with {ProductShortName}. The installer automates much of the remaining setup.
+
+.Prerequisites
+
+* A GitHub personal access token
+
+* A container engine installed on your workstation, such as link:https://podman.io/docs/installation[Podman] or link:https://docs.docker.com/get-started/get-docker/[Docker]
+
+* Valid credentials for link:registry.redhat.io[]
+
+* `cluster-admin` access to an OpenShift cluster
+
+.Procedure
+
+. Run the following command to create a GitHub application:
 +
 [source,bash]
 ----
-bash-5.1$ rhtap-cli integration azure \
-  --organization="$AZURE_ORGANIZATION" \
-  --host="$AZURE_HOST_URL" \
-  --token="$AZURE_API_TOKEN" \
-  // Append only if you are using Microsoft authentication
-  --tenantID="$AZURE_TENANT_ID" \
-  --client-id="$AZURE_CLIENT_ID" \
-  --client-secret="$AZURE_CLIENT_SECRET"
+bash-5.1$ rhtap-cli integration github-app \
+  --create \
+  --token="$GH_TOKEN" \
+  --org="$GH_ORG_NAME" \
+  $GH_APP_NAME
 ----
+Replace the following variables:
+* `$GH_TOKEN`: The GitHub personal access token
+* `$GH_ORG_NAME`: The GitHub organization name
+* `$GH_APP_NAME`: The name for your GitHub application
+
+. Copy the URL from the command output and open it in a browser.
+
+. When prompted, click *Create your GitHub App*.
+
+. If required, authenticate to GitHub.
+
+. Click *Create GitHub App for <your organization>*.
+
+. When the app is created, a success message appears. Click the link in that message to install the application in your GitHub organization.
+
+. On the redirected GitHub page, click the green *Install* button.
+
+. Select the GitHub organization that you are using for {ProductShortName}.
+
+. When prompted, select *All repositories*, and click *Install*.
++
+[NOTE]
+====
+You may want to keep this GitHub page open. It contains a banner with a link to the {ProductShortName} Developer Hub UI, which begins with `https://backstage-developer-hub-rhtap...`.
+====
+
+[discrete]
+== (Optional) Fork the software catalog repository
+
+{ProductShortName} provides a catalog of software templates that help developers scaffold applications. To customize these templates, fork the repository before installation.
+
+.Procedure
+
+. In your browser, go to the link:https://github.com/redhat-appstudio/tssc-sample-templates[{ProductShortName} software catalog repository].
+
+. Click *Fork* to fork the repository.
+
+.. Uncheck the box labeled *Copy the `main` branch only*.
+
+. When the fork is created, copy its URL and save it in the `private.env` file.
+
+. In the forked repository, click *main* to open the branch/tag dropdown.
+
+. Under *Tags*, select the release that matches your {ProductShortName} version.
++
+[NOTE]
+====
+Update your fork periodically to include changes from the upstream repository.
+====
