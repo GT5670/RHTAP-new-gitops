@@ -1,34 +1,40 @@
 :_mod-docs-content-type: PROCEDURE
 
-[id="creating-the-config-file_{context}"]
-= Creating the {ProductShortName} `config.yaml` file
+[id="integrating-products-and-external-services_{context}"]
+= Integrating products and external services
 
-Use this procedure to create the `config.yaml` file. This file defines how Red Hat Trusted Application Pipeline (RHTAP) is deployed in your cluster. It also enables RHTAP to detect any external integrations that you configure during installation.
+The {ProductShortName} installer deploys a network of products that work together to form a secure, automated CI/CD platform. However, two of these products you may have already installed: Advanced Cluster Security (ACS) and Quay. If you already have instances of either of these products, you can integrate them into your installation of {ProductShortName}. Integration saves time and prevents data loss. If you have instances of these products and do _not_ integrate them, then the installer just creates new instances in new namespaces.
 
-.Prerequisites
+Additionally, there are three products that you can replace with certain substitutes in your deployment of {ProductShortName}. The table below names these products, their purpose, and what other products you can use instead.
 
-* `cluster-admin` access to your OpenShift Container Platform (OCP) cluster.
-* An active `rhtap-cli` container session.
+[cols="1,1, 1"]
+|===
+|Product |Purpose |Possible substitutes
 
-.Procedure
+|GitHub
+a|Source code repository
 
-. In the container shell, log in to your OpenShift cluster as a cluster administrator.
-+
-[source,bash]
-----
-bash-5.1$ oc login https://api.<your-cluster-domain>:6443 \
-  --username=cluster-admin \
-  --password=<your-password>
-----
+a|* GitLab
+* Bitbucket
 
-. Create the default configuration file for RHTAP.
-+
-[source,bash]
-----
-bash-5.1$ rhtap-cli config --create
-----
+|Tekton
+a|CI pipeline
 
-[NOTE]
-====
-This command creates a configuration map (`config.yaml`) that defines the components {ProductShortName} installs and enables integration support for any pre-existing products. You can customize this file later to suit your environment.
-====
+a|* Jenkins
+* GitHub Actions
+* GitLab CI
+
+CI pipeline substitutes conform to link:https://slsa.dev/spec/v1.0/levels[SLSA] Build L2. Only Tekton conforms to Build L3.
+
+|Quay
+a|Registry for artifacts
+
+a|Artifactory
+
+|===
+
+Please note that when you use alternative providers for your Git, CI and registry integrations, {ProductShortName} also installs plugins for those products in {RHDHLongName}. Most of them are Technology Preview or community plugins. This means that *replacing default products can introduce security risks and is not recommended for a production environment.* For more information, please see the plugins table in our link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/release_notes_for_red_hat_trusted_application_pipeline_{ProductVersion}/con_support-matrix_default[release notes] and the link:https://docs.redhat.com/en/documentation/red_hat_developer_hub/{RHDHVersion}/html/dynamic_plugins_reference/con-preinstalled-dynamic-plugins#snip-dynamic-plugins-support_title-plugins-rhdh-about[{RHDHShortName} documentation] about plugins.  
+
+Also be aware that, to customize your installation, you must run all relevant commands inside an `rhtap-cli` container, which is logged into your cluster as ClusterAdmin.
+
+The following procedures explain how to customize your installation of {ProductShortName}, by integrating pre-existing instances and outside products.
