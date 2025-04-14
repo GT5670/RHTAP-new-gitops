@@ -1,74 +1,46 @@
-= Installing {ProductName}
+:_mod-docs-content-type: PROCEDURE
 
-{ProductName} ({ProductShortName}) is not really a single product. Instead, it is a set of products that combine to form a highly automated, customizable, and secure platform for building applications.
+[id="login-and-download-the-image-registry_{context}"]
+= Log in to Podman and download the installer image
 
-By default, {ProductShortName} includes the following products:
+Use this procedure to authenticate with `registry.redhat.io`, download the RHTAP installer image, and launch the installer container. This step is essential because the installer CLI (`rhtap-cli`) runs inside a container and automates the deployment and integration of Red Hat Trusted Application Pipeline (RHTAP) components.
 
-* link:https://docs.redhat.com/documentation/red_hat_advanced_cluster_security_for_kubernetes/{ACSVersion}/[Advanced Cluster Security (ACS)]: to scan your artifacts for vulnerabilities.
+This setup helps you securely configure your environment before starting the installation process.
 
-* link:https://docs.redhat.com/documentation/red_hat_developer_hub/{RHDHVersion}[Developer Hub]: a self-service portal, to consolidate management of applications across their lifecycle.
+.Prerequisites
 
-* link:https://next.redhat.com/2023/06/13/introducing-enterprise-contract/[Enterprise Contract]: to validate your artifacts against customizable policies.
+* A container engine installed on your workstation, such as link:https://podman.io/docs/installation[Podman] or link:https://docs.docker.com/get-started/get-docker/[Docker].
+* Valid Red Hat credentials for accessing `registry.redhat.io`.
 
-* link:https://docs.redhat.com/documentation/red_hat_openshift_gitops/{OSGitOpsVersion}/[OpenShift GitOps]: to manage Kubernetes deployments and their infrastructure.
+.Procedure
 
-* link:https://docs.redhat.com/documentation/red_hat_openshift_pipelines/{OSPipelinesVersion}/[OpenShift Pipelines]: to enable automation and provide visibility for continuous integration and continuous delivery (CI/CD) of software.
+. Log in to the Red Hat registry.
++
+[source,bash]
+----
+podman login registry.redhat.io
+----
 
-* link:https://docs.redhat.com/documentation/red_hat_quay/{QuayVersion}[Quay.io]: a container registry, to store your artifacts.
+. Pull the installer image.
++
+[source,bash]
+----
+podman pull registry.redhat.io/rhtap-cli/rhtap-cli-rhel9:latest
+----
 
-* link:https://docs.redhat.com/documentation/en-us/red_hat_trusted_artifact_signer/{RHTASVersion}[Trusted Artifact Signer]: to sign and validate the artifacts that {ProductShortName} produces.
-
-* link:https://docs.redhat.com/documentation/red_hat_trusted_profile_analyzer/{RHTPAVersion}[Trusted Profile Analyzer]: to deliver actionable information about your security posture.
-
-You can see exactly which versions of these products {ProductShortName} supports in the compatibility and support matrix of our link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/{ProductVersion}/html/release_notes_for_red_hat_trusted_application_pipeline_{ProductVersion}/con_support-matrix_default[Release notes].
-
-NOTE: {ProductName} supports many alternatives to this default combination of products. Later in the installation process, this documentation explains how to customize your deployment to meet your needs.  
-
-Because a fully-operational instance of {ProductShortName} involves all of the products listed above, installing {ProductShortName} takes some effort. However, we have automated the vast majority of this process with an installer tool packaged as a container image.
-
-Be aware that the {ProductShortName} installer is not a manager: it does not support upgrades. The installer generates your first deployment of {ProductShortName}. But after installation, you must manage each product within {ProductShortName} separately. And while the installer can be run multiple times, doing so after manually changing the configuration of a product may have unpredictable results.
-
-Additionally, the products that the installer deploys are production ready, but they are sized for a proof of concept or a very small team. For larger teams, manual reconfiguration of the products is most likely necessary and should be done by following procedures documented for each individual product.
-
-Lastly, please be aware that the {ProductShortName} subscription only includes {RHDHLongName}, {RHTASLongName}, {RHTPALongName}, and {ECLong}. The {ProductShortName} installer deploys all the other products listed above, too. But to use them, you must purchase a subscription for OpenShift Plus.
-
-.Installation steps
-To install {ProductShortName} using the installer, you must complete the following procedures.
-
-. Configuring GitHub for {ProductShortName}
-
-. (Optional) Customizing your installation 
-
-. Installing {ProductShortName} in your cluster
-
-. (Optional) Completing integrations after installation
-
-The following pages of this document explain each of those installation steps in detail. 
-
-include::topics/installer-topics/proc_login-and-download-the-image-registry.adoc[leveloffset=+1]
-
-include::topics/installer-topics/proc_creating-the-config-file.adoc[leveloffset=+1]
-
-include::topics/installer-topics/proc_integrating-products-and-external-services.adoc[leveloffset=+1]
-
-include::topics/installer-topics/proc_integrating-github.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-acs.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-quay.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-bitbucket.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-github-actions.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-gitlab.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-jenkins.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-azure-pipelines.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_integrating-jfrog-artifactory.adoc[leveloffset=+2]
-
-include::topics/installer-topics/proc_customizing-the-config-file.adoc[leveloffset=+1]
-
-include::topics/installer-topics/proc_deploying-rhtap.adoc[leveloffset=+1]
+. Start the installer container.
++
+[source,bash]
+----
+podman run \
+  -it \
+  --entrypoint bash \ <1>
+  --env-file tmp/private.env \ <2>
+  --publish 8228:8228 \ <3>
+  --rm \
+  rhtap-cli:latest <4>
+----
+<1> Starts the container with a bash shell so that you can interact with it.
+<2> Uses an environment file (`private.env`) to securely inject credentials and configuration without exposing them on the CLI.
+<3> Exposes port 8228 because the GitHub App creation process runs a temporary local service on this port.
+<4> Refers to the installer image that you pulled in the previous step.
