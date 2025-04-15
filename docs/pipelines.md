@@ -1,125 +1,14 @@
-:_mod-docs-content-type: PROCEDURE
+Update the About RHDH section to capture Developer focused content
+ 
+Generate Summary for this Jira Issue
+Description
+Persona focus for these enhancements - Developers and first time users, unfamiliar with Backstage.
+Acceptance Criteria:
+1. Capture more information on what is an IDP.
+Reference:
 
-[id="integrating-github_{context}"]
-= Integrate GitHub with {ProductShortName}
-
-{ProductShortName} uses GitHub to authenticate users and to create and manage application repositories. Before you install {ProductShortName}, you must configure GitHub to support these capabilities.
-
-To enable GitHub integration, complete the following procedures:
-
-. Create a GitHub personal access token.
-. Create a GitHub application.
-. (Optional) Fork the software catalog repository.
-
-[discrete]
-== Create a GitHub personal access token
-
-You must own a GitHub organization before you create a personal access token.
-
-You can use an existing GitHub organization, create a new one, or request ownership of an existing organization from its current administrators.
-
-After installation, this GitHub organization provides a location where users can generate repositories for their applications.
-
-You must create a personal access token (PAT) to complete the next procedure.
-
-.Prerequisites
-
-* Ownership of a GitHub organization
-
-.Procedure
-
-. Go to your link:https://github.com/settings/apps[Developer settings] page on GitHub.
-
-. In the left navigation panel, under *Personal access tokens*, click *Tokens (classic)*.
-
-. From the *Generate new token* dropdown menu, select *Generate new token (classic)*. Authenticate if prompted.
-
-. Enter a name, select an expiration date, and under *Select scopes*, select *repo*. This automatically includes all scopes from `repo:status` to `security_events`.
-
-. Click *Generate token*. GitHub redirects you to a new page where your token is displayed.
-
-. Create a file named `private.env`, and save the token in that file.
-+
-[NOTE]
-====
-The `private.env` file is required for a successful installation. Save this file in a secure location.
-====
-
-[discrete]
-== Create a GitHub application
-
-Creating a GitHub application for {ProductShortName} allows developers to authenticate to Red Hat Developer Hub, the web-based interface for interacting with {ProductShortName}. It also allows {ProductShortName} to access your GitHub organization and create repositories.
-
-You must create and install this application in the same GitHub organization that you plan to use with {ProductShortName}. The installer automates much of the remaining setup.
-
-.Prerequisites
-
-* A GitHub personal access token
-
-* A container engine installed on your workstation, such as link:https://podman.io/docs/installation[Podman] or link:https://docs.docker.com/get-started/get-docker/[Docker]
-
-* Valid credentials for link:registry.redhat.io[]
-
-* `cluster-admin` access to an OpenShift cluster
-
-.Procedure
-
-. Run the following command to create a GitHub application:
-+
-[source,bash]
-----
-bash-5.1$ rhtap-cli integration github-app \
-  --create \
-  --token="$GH_TOKEN" \
-  --org="$GH_ORG_NAME" \
-  $GH_APP_NAME
-----
-Replace the following variables:
-* `$GH_TOKEN`: The GitHub personal access token
-* `$GH_ORG_NAME`: The GitHub organization name
-* `$GH_APP_NAME`: The name for your GitHub application
-
-. Copy the URL from the command output and open it in a browser.
-
-. When prompted, click *Create your GitHub App*.
-
-. If required, authenticate to GitHub.
-
-. Click *Create GitHub App for <your organization>*.
-
-. When the app is created, a success message appears. Click the link in that message to install the application in your GitHub organization.
-
-. On the redirected GitHub page, click the green *Install* button.
-
-. Select the GitHub organization that you are using for {ProductShortName}.
-
-. When prompted, select *All repositories*, and click *Install*.
-+
-[NOTE]
-====
-You may want to keep this GitHub page open. It contains a banner with a link to the {ProductShortName} Developer Hub UI, which begins with `https://backstage-developer-hub-rhtap...`.
-====
-
-[discrete]
-== (Optional) Fork the software catalog repository
-
-{ProductShortName} provides a catalog of software templates that help developers scaffold applications. To customize these templates, fork the repository before installation.
-
-.Procedure
-
-. In your browser, go to the link:https://github.com/redhat-appstudio/tssc-sample-templates[{ProductShortName} software catalog repository].
-
-. Click *Fork* to fork the repository.
-
-.. Uncheck the box labeled *Copy the `main` branch only*.
-
-. When the fork is created, copy its URL and save it in the `private.env` file.
-
-. In the forked repository, click *main* to open the branch/tag dropdown.
-
-. Under *Tags*, select the release that matches your {ProductShortName} version.
-+
-[NOTE]
-====
-Update your fork periodically to include changes from the upstream repository.
-====
+https://internaldeveloperplatform.org/what-is-an-internal-developer-platform/
+https://www.dynatrace.com/knowledge-base/internal-developer-platforms/
+2. Add more information to the existing About section on RHDH from the perspective of Developers and first time users of RHDH.
+We will be creating more developer focused content on Software catalog, templates and tech docs, Learning paths (specially relevant from AI perspective ) and Plugins. Some of this is already available. Add links to existing sections and create placeholder links for those that are not yet done.
+Similar to: Reference: https://backstage.io/docs/overview/what-is-backstage/
