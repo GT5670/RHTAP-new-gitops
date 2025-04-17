@@ -1,96 +1,74 @@
 :_mod-docs-content-type: PROCEDURE
 
-[id="integrating-github_{context}"]
-= Integrating GitHub
+[id="integrating-quay_{context}"]
+= (Optional) Integrating Quay
 
-{ProductShortName} uses GitHub to authenticate users and to create and manage application repositories. Before you install {ProductShortName}, you must configure GitHub to support these capabilities.
+Use this procedure to integrate an existing Quay organization or a self-hosted Quay instance with {ProductShortName} as your container image registry.
 
-To enable GitHub integration, complete the following procedures:
-
-. Create a GitHub personal access token.
-. Create a GitHub application.
-
-[discrete]
-== Create a GitHub personal access token
-
-You must own a GitHub organization before you create a personal access token.
-
-You can use an existing GitHub organization, create a new one, or request ownership of an existing organization from its current administrators.
-
-After installation, this GitHub organization provides a location where users can generate repositories for their applications.
-
-You must create a personal access token (PAT) to complete the next procedure.
+You will obtain two values from your Quay instance and then use them to complete the integration.
 
 .Prerequisites
 
-* Ownership of a GitHub organization
+* A link:http://quay.io[Quay] account
+* Ownership of a Quay link:https://docs.quay.io/glossary/organizations.html[organization]. Any plan, including the free option, is supported.
+
+[NOTE]
+====
+Red Hat recommends using a robot account for this integration instead of a user account. A robot account allows automated systems and multiple users to authenticate to the Quay namespace after {ProductShortName} is installed.
+
+To learn how to create and configure a robot account, see: link:https://docs.redhat.com/en/documentation/red_hat_quay/{QuayVersion}/html/use_red_hat_quay/allow-robot-access-user-repo#creating-robot-account-v2-ui[Create and use a robot account in Red Hat Quay]. 
+====
 
 .Procedure
 
-. Go to your link:https://github.com/settings/apps[Developer settings] page on GitHub.
+. In a web browser, log in to Quay.
 
-. In the left navigation panel, under *Personal access tokens*, click *Tokens (classic)*.
+. On the right side of the page header, click your username, and then select *Account Settings* from the dropdown menu.
 
-. From the *Generate new token* dropdown menu, select *Generate new token (classic)*. Authenticate if prompted.
+. On the *Account Settings* page, under *Docker CLI Password*, click *Generate Encrypted Password*. When prompted, enter your password to authenticate.
 
-. Enter a name, select an expiration date, and under *Select scopes*, select *repo*. This automatically includes all scopes from `repo:status` to `security_events`.
+. In the same popup window, click *Docker Configuration > View [username]-auth.json*. Copy the string value (without quotation marks) that follows `"auth":`.
 
-. Click *Generate token*. GitHub redirects you to a new page where your token is displayed.
+. In your `private.env` file, define the Docker configuration using your username and `auth` token in the following format:
++
+[source,json]
+----
+{"auths": {"quay.io": {"auth": "[auth token]", "email": ""}}}
+----
 
-. (Optional) To use the token in future steps, save it in a file (for example, values.txt).
+. In the Quay web UI, go to the link:https://quay.io/repository/[Repositories page].
 
+. On the right side of the page, under *Users and Organizations*, click the organization you want to use with {ProductShortName}.
 
-[discrete]
-== Create a GitHub application
+. In the left-hand navigation, click *Applications*.
 
-Creating a GitHub application for {ProductShortName} allows developers to authenticate to Red Hat Developer Hub, the web-based interface for interacting with {ProductShortName}. It also allows {ProductShortName} to access your GitHub organization and create repositories.
+. Click *Create New Application*, and enter a name for your application.
 
-You must create and install this application in the same GitHub organization that you plan to use with {ProductShortName}. The installer automates much of the remaining setup.
+. Click the name of the application that you created.
 
-.Prerequisites
+. In the left-hand navigation, click *Generate Token*.
 
-* A GitHub personal access token
+. In the permissions list, select *View all visible repositories*.
 
-* Valid credentials for link:registry.redhat.io[]
+. Click *Generate Access Token*.
 
-* `cluster-admin` access to an OpenShift cluster
+. Click *Authorize Application*. The UI displays the access token. Save this token in your `private.env` file.
 
-.Procedure
-
-. Run the following command to create a GitHub application:
+. In your `rhtap-cli` container, run the following command to integrate Quay:
 +
 [source,bash]
 ----
-bash-5.1$ rhtap-cli integration github-app \
-  --create \
-  --token="$GH_TOKEN" \
-  --org="$GH_ORG_NAME" \
-  $GH_APP_NAME
+bash-5.1$ rhtap-cli integration quay \
+  --dockerconfigjson='$QUAY_DOCKERCONFIGJSON' \
+  --token="$QUAY_TOKEN" \
+  --url="$QUAY_URL"
 ----
 Replace the following variables:
-
-* `$GH_TOKEN`: The GitHub personal access token
-* `$GH_ORG_NAME`: The GitHub organization name
-* `$GH_APP_NAME`: The name for your GitHub application
-
-. Copy the URL from the command output and open it in a browser.
-
-. When prompted, click *Create your GitHub App*.
-
-. If required, authenticate to GitHub.
-
-. Click *Create GitHub App for <your organization>*.
-
-. When the app is created, a success message appears. Click the link in that message to install the application in your GitHub organization.
-
-. On the redirected GitHub page, click the green *Install* button.
-
-. Select the GitHub organization that you are using for {ProductShortName}.
-
-. When prompted, select *All repositories*, and click *Install*.
+* `$QUAY_DOCKERCONFIGJSON`: The Docker configuration string you saved earlier
+* `$QUAY_TOKEN`: The access token you generated in Quay
+* `$QUAY_URL`: The URL of your Quay instance (for example, `https://quay.io`)
 +
 [NOTE]
 ====
-You may want to keep this GitHub page open. In the page banner, there is a link that you can use after installation to access {ProductShortName} (beginning with `\https://backstage-developer-hub-rhtap...`).
+Make sure to enclose the `$QUAY_DOCKERCONFIGJSON` value in single quotes to preserve JSON formatting.
 ====
-
