@@ -1,79 +1,89 @@
 :_mod-docs-content-type: PROCEDURE
 
-[id="integrating-quay_{context}"]
-= (Optional) Integrating Quay
+[id="customizing-the-config-file_{context}"]
+= Customizing the `config.yaml` file
 
-Use this procedure to integrate an existing Quay organization or a self-hosted Quay instance with {ProductShortName} as your container image registry.
-
-You must obtain two values from your Quay instance and use them when running the CLI command: a Docker configuration string and an access token.
+Use this procedure to customize the `config.yaml` file before integrating products and external services. Customizing this file ensures that your integrations and preferences are respected during installation.
 
 .Prerequisites
 
-* A link:http://quay.io[Quay] account
-* Ownership of a Quay link:https://docs.quay.io/glossary/organizations.html[organization] (any plan is supported, including free)
+* You plan to integrate at least one product or external service (For example, {RHACSShortName} or Quay).
 
+* (Optional) Forked software catalog repository URL. {ProductShortName} provides a catalog of software templates that help developers scaffold applications. To customize these templates, fork the repository before installation.
+
+.. In your browser, go to the link:https://github.com/redhat-appstudio/tssc-sample-templates[{ProductShortName} software catalog repository].
+
+.. Click *Fork* to fork the repository.
+
+... Uncheck the box labeled *Copy the `main` branch only*.
+
+.. When the fork is created, copy its URL and save it in the `private.env` file.
+
+.. In the forked repository, click *main* to open the branch/tag dropdown.
+
+.. Under *Tags*, select the release that matches your {ProductShortName} version.
++
 [NOTE]
 ====
-Red Hat recommends using a robot account for this integration instead of a user account. A robot account allows automated systems and multiple users to authenticate to the Quay namespace after {ProductShortName} is installed.
-
-To learn how to create and configure a robot account, see:
-link:https://docs.redhat.com/en/documentation/red_hat_quay/{QuayVersion}/html/use_red_hat_quay/allow-robot-access-user-repo#creating-robot-account-v2-ui[Create and use a robot account in Red Hat Quay].
+Update your fork periodically to include changes from the upstream repository.
 ====
+
+* You have access to the OpenShift Web Console.
 
 .Procedure
 
-. In a web browser, log in to your Quay account.
+. In the OpenShift console, switch to the *Administrator* perspective.
 
-. On the top right of the page, click your username, and then select *Account Settings*.
+. Go to *Workloads* > *ConfigMaps*.
 
-. On the *Account Settings* page, under *Docker CLI Password*, click *Generate Encrypted Password*. When prompted, enter your password to authenticate.
+. From the Project drop down list, select {ProductShortName}.
 
-. In the same popup, click *Docker Configuration* > *View [username]-auth.json*.  
-  Copy the string value (without quotation marks) that follows `"auth":`.
+. Open the `rhtap-cli-config` ConfigMap.
 
-. Save the `auth` value and your Quay username to a file, such as `values.txt`, for reuse in later steps to be used in the Docker configuration.
+. Select the *YAML* view and navigate to where `config.yaml` parameters are defined.
 
-. In a separate browser tab, go to the link:https://quay.io/repository/[Repositories page].
+. Update the following fields as needed:
 
-. Under *Users and Organizations*, click the name of the organization you want to use with {ProductShortName}.
-
-. In the left-hand navigation, click *Applications*.
-
-. Click *Create New Application* and enter a name.
-
-. Click the name of the application that you created.
-
-. In the left-hand navigation, click *Generate Token*.
-
-. In the permissions list, select *View all visible repositories*.
-
-. Click *Generate Access Token*.
-
-. Click *Authorize Application*. Quay displays the access token. Copy this token.
-
-[NOTE]
-====
-You can use an OAuth application instead of a user or robot account. For more information, see:
-link:https://access.redhat.com/documentation/en-us/red_hat_quay/3/html/manage_red_hat_quay/configure-oauth-applications[Create an OAuth application].
-
-Only the *View all visible repositories* permission is required.
-====
-
-. In your `rhtap-cli` container, run the following command to integrate Quay with {ProductShortName}, passing all required values inline:
+.. To use a custom software catalog, set the `catalogURL`:
 +
-[source,bash]
+[source,yaml]
 ----
-bash-5.1$ rhtap-cli integration quay \
-  --dockerconfigjson='{"auths":{"quay.io":{"auth":"<auth_token>","email":""}}}' \
-  --token="<quay_access_token>" \
-  --url="https://quay.io"
+redhatDeveloperHub:
+  properties:
+    catalogURL: https://github.com/<your-org>/tssc-sample-templates/blob/releases/all.yaml
 ----
-Replace the following values:
-* `<auth_token>`: The value from the `auth.json` file under `"auth":`
-* `<quay_access_token>`: The access token you generated via the OAuth application
-* `https://quay.io`: The Quay instance URL (use your custom URL if self-hosted)
 
+.. To disable installation of components you've integrated externally (for example, ACS and Quay):
++
+[source,yaml]
+----
+redhatAdvancedClusterSecurity:
+  enabled: &rhacsEnabled false
+  namespace: &rhacsNamespace rhtap-rhacs
+
+redHatQuay:
+  enabled: &quayEnabled false
+  namespace: &quayNamespace rhtap-quay
+----
++
 [NOTE]
 ====
-Make sure to enclose the entire `--dockerconfigjson` value in single quotes to preserve JSON formatting.
+If you try to integrate outside products or pre-existing instances, but do not customize `config.yaml`, {ProductName} still installs and uses its default products. You must customize `config.yaml` for your `rhtap-cli integration` commands to take effect. However, if you do not customize `config.yaml` for your `rhtap-cli integration`, the installer deploys the product and overrides the existing integrations.
 ====
+
+.. To use a custom namespace instead of the default one, configure the `namespacePrefixes` property in the `redhatDeveloperHub` section of the `config.yaml` file. By default, {ProductShortName} creates four namespaces during installation:
+
+** `rhtap-app-ci`: For CI pipeline workloads
+** `rhtap-app-development`, `rhtap-app-stage`, and `rhtap-app-prod`: For development, staging, and prod deployments
++
+You can customize the prefixes for these namespaces and define additional namespace sets by using the `namespacePrefixes` property. For example, you can configure custom prefixes to generate namespaces such as `my_prefix1-app-ci`, `my_prefix1-app-development`, `my_prefix1-app-stage`, and `my_prefix1-app-prod`.
++
+[source,yaml]
+----
+redhatDeveloperHub:
+  namespacePrefixes:
+    - my_prefix1
+    - my_prefix2
+----
+
+. After you complete all necessary changes, select *Save*.
