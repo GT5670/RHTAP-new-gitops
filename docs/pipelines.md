@@ -1,89 +1,119 @@
-:_mod-docs-content-type: PROCEDURE
+= About Red Hat Developer Hub
 
-[id="customizing-the-config-file_{context}"]
-= Customizing the `config.yaml` file
+Red Hat Developer Hub (RHDH) is an enterprise-grade internal developer portal (IDP) that simplifies and accelerates software development. It provides a customizable web-based portal that connects to Red Hat OpenShift and other cloud-native platforms, creating a consistent environment for building, deploying, and managing applications.
 
-Use this procedure to customize the `config.yaml` file before integrating products and external services. Customizing this file ensures that your integrations and preferences are respected during installation.
+RHDH centralizes access to source code repositories, CI/CD pipelines, APIs, documentation, and runtime environments. Developers follow predefined workflows—called golden paths—that reduce complexity and promote best practices.
 
-.Prerequisites
+RHDH improves developer productivity, reduces tool sprawl, and ensures consistent delivery across teams.
 
-* You plan to integrate at least one product or external service (For example, {RHACSShortName} or Quay).
+== Understanding Internal Developer Platforms
 
-* (Optional) Forked software catalog repository URL. {ProductShortName} provides a catalog of software templates that help developers scaffold applications. To customize these templates, fork the repository before installation.
+An internal developer platform (IDP) is a curated set of tools and services that supports developer self-service. Instead of navigating multiple systems, developers use a unified interface to perform tasks such as provisioning environments, deploying code, or accessing APIs.
 
-.. In your browser, go to the link:https://github.com/redhat-appstudio/tssc-sample-templates[{ProductShortName} software catalog repository].
+The platform team builds and maintains the IDP. Developers consume it as a product. This structure balances autonomy with governance.
 
-.. Click *Fork* to fork the repository.
+=== Why IDPs Matter
 
-... Uncheck the box labeled *Copy the `main` branch only*.
+IDPs address the challenges of modern software delivery:
 
-.. When the fork is created, copy its URL and save it in the `private.env` file.
+* *Self-service and automation:* Developers complete common tasks without raising tickets. Automation reduces errors and wait times.
+* *Standardization:* Golden paths enforce secure, compliant, and reliable practices.
+* *Centralized knowledge:* Portals consolidate documentation, ownership details, and service metadata.
+* *Improved experience:* Developers spend less time switching contexts and more time building features.
 
-.. In the forked repository, click *main* to open the branch/tag dropdown.
+== Key Features of Red Hat Developer Hub
 
-.. Under *Tags*, select the release that matches your {ProductShortName} version.
-+
-[NOTE]
-====
-Update your fork periodically to include changes from the upstream repository.
-====
+RHDH provides integrated features that help teams move from idea to production quickly and consistently.
 
-* You have access to the OpenShift Web Console.
+=== Centralized Dashboard
 
-.Procedure
+Access all development tools, pipelines, APIs, environments, and documentation from a single interface. RHDH integrates with Git repositories, Kubernetes, OpenShift, and project management tools.
 
-. In the OpenShift console, switch to the *Administrator* perspective.
+=== Software Catalog
 
-. Go to *Workloads* > *ConfigMaps*.
+The software catalog is the core of RHDH. It provides a searchable inventory of internal services, APIs, applications, and libraries.
 
-. From the Project drop down list, select {ProductShortName}.
+* Discover existing components quickly.
+* View ownership, metadata, and status at a glance.
+* Standardize structure across all entries.
+* Search code, docs, and infrastructure in one place.
 
-. Open the `rhtap-cli-config` ConfigMap.
+For more information on software catalog see, link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-catalog[About software catalog]
 
-. Select the *YAML* view and navigate to where `config.yaml` parameters are defined.
+=== Software Templates
 
-. Update the following fields as needed:
+Templates generate preconfigured project scaffolding, including CI/CD, runtime, and security configurations.
 
-.. To use a custom software catalog, set the `catalogURL`:
-+
-[source,yaml]
-----
-redhatDeveloperHub:
-  properties:
-    catalogURL: https://github.com/<your-org>/tssc-sample-templates/blob/releases/all.yaml
-----
+* Create projects in minutes.
+* Enforce best practices and organizational standards.
+* Empower developers to self-serve within defined boundaries.
+* Use AI-focused templates to build intelligent applications faster.
 
-.. To disable installation of components you've integrated externally (for example, ACS and Quay):
-+
-[source,yaml]
-----
-redhatAdvancedClusterSecurity:
-  enabled: &rhacsEnabled false
-  namespace: &rhacsNamespace rhtap-rhacs
+For more information on software templates, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-templates[About software templates]
 
-redHatQuay:
-  enabled: &quayEnabled false
-  namespace: &quayNamespace rhtap-quay
-----
-+
-[NOTE]
-====
-If you try to integrate outside products or pre-existing instances, but do not customize `config.yaml`, {ProductName} still installs and uses its default products. You must customize `config.yaml` for your `rhtap-cli integration` commands to take effect. However, if you do not customize `config.yaml` for your `rhtap-cli integration`, the installer deploys the product and overrides the existing integrations.
-====
+=== Tech Docs
 
-.. To use a custom namespace instead of the default one, configure the `namespacePrefixes` property in the `redhatDeveloperHub` section of the `config.yaml` file. By default, {ProductShortName} creates four namespaces during installation:
+Tech Docs in RHDH make documentation part of the development lifecycle.
 
-** `rhtap-app-ci`: For CI pipeline workloads
-** `rhtap-app-development`, `rhtap-app-stage`, and `rhtap-app-prod`: For development, staging, and prod deployments
-+
-You can customize the prefixes for these namespaces and define additional namespace sets by using the `namespacePrefixes` property. For example, you can configure custom prefixes to generate namespaces such as `my_prefix1-app-ci`, `my_prefix1-app-development`, `my_prefix1-app-stage`, and `my_prefix1-app-prod`.
-+
-[source,yaml]
-----
-redhatDeveloperHub:
-  namespacePrefixes:
-    - my_prefix1
-    - my_prefix2
-----
+* Write docs in Markdown.
+* Store docs alongside code.
+* Search and view docs in the portal.
+* Follow a consistent structure across all teams.
 
-. After you complete all necessary changes, select *Save*.
+=== Learning Paths
+
+Learning Paths help developers onboard and upskill with curated tutorials and guides.
+
+* Complete structured onboarding.
+* Follow interactive, step-by-step guides.
+* Learn modern topics, including AI/ML.
+* Access internal and external training resources.
+
+=== Plugins and Integrations
+
+Use plugins to integrate external tools and extend RHDH functionality.
+
+* Add verified, Red Hat–supported plugins.
+* Reduce context switching with unified dashboards.
+* Update or remove plugins without downtime.
+* Integrate with OpenShift, pipelines, scanners, and more.
+
+For more information on Plugins and integrations, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/plugins-integrations[About plugins and integrations]
+
+=== Role-Based Access Control (RBAC)
+
+RHDH includes enterprise-grade RBAC.
+
+* Control access to resources by role.
+* Secure sensitive operations.
+* Meet enterprise compliance standards.
+
+== Benefits by Audience
+
+=== For Developers
+
+* *Fast onboarding:* Access services, docs, and environments quickly. Start building with minimal setup.
+* *Reduced cognitive load:* Find everything in one place—no more tool hopping.
+* *Self-service:* Create new apps and environments without manual approvals.
+* *Built-in standards:* Follow secure, compliant workflows automatically.
+* *Cross-team visibility:* Discover services, reuse APIs, and stay informed.
+* *Higher productivity:* Focus on writing code, not configuring systems.
+
+=== For Platform Engineers
+
+* *Curated platforms:* Build reusable tools and templates aligned to organizational needs.
+* *Central configuration:* Manage infrastructure as code. Synchronize settings across environments.
+* *Governance at scale:* Enforce policies without blocking progress. Ensure compliance through automation.
+
+=== For Organizations
+
+* *Scalability:* Support growing teams with a consistent developer experience.
+* *Security:* Protect systems with built-in RBAC and secure integrations.
+* *Efficiency:* Eliminate manual workflows and reduce delivery time. Increase ROI on developer time.
+
+== Getting Started
+
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/requirements[Review system requirements]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/index[Install Red Hat Developer Hub]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/user_guides/index[Explore feature guides]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/configuring_red_hat_developer_hub/index[Customize with plugins and integrations]
