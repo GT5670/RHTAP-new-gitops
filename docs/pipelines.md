@@ -1,164 +1,119 @@
 = About Red Hat Developer Hub
 
-Red Hat Developer Hub (RHDH) is an enterprise-grade Internal Developer Portal (IDP) that simplifies and accelerates software development within organizations. It provides a customizable developer portal that integrates with Red Hat OpenShift and other cloud-native technologies to create a consistent environment for building, deploying, and managing applications.
+Red Hat Developer Hub (RHDH) is an enterprise-grade internal developer portal (IDP) that simplifies and accelerates software development. It provides a customizable web-based portal that connects to Red Hat OpenShift and other cloud-native platforms, creating a consistent environment for building, deploying, and managing applications.
 
-RHDH acts as a central platform where development teams access source code repositories, CI/CD pipelines, APIs, and technical documentation. By integrating these tools and services, Red Hat Developer Hub establishes "golden paths" – predefined, best-practice workflows that guide developers through common tasks efficiently.
+RHDH centralizes access to source code repositories, CI/CD pipelines, APIs, documentation, and runtime environments. Developers follow predefined workflows—called golden paths—that reduce complexity and promote best practices.
 
-The outcome is increased developer productivity and satisfaction: engineers spend less time searching for resources or configuring infrastructure and more time writing high-quality code that meets enterprise standards.
+RHDH improves developer productivity, reduces tool sprawl, and ensures consistent delivery across teams.
 
-== Understanding Internal Developer Platforms (IDPs)
+== Understanding Internal Developer Platforms
 
-An Internal Developer Platform is a curated set of integrated tools and services that provides a self-service platform for software developers within an organization. Rather than requiring developers to navigate multiple systems manually (source control, CI/CD, environments, monitoring), an IDP offers a streamlined experience where these systems are coordinated by a dedicated platform team.
+An internal developer platform (IDP) is a curated set of tools and services that supports developer self-service. Instead of navigating multiple systems, developers use a unified interface to perform tasks such as provisioning environments, deploying code, or accessing APIs.
 
-The platform team configures automation and default "golden path" configurations for common tasks (such as creating a microservice or provisioning an environment), which developers can use with minimal effort through a portal, CLI, or APIs. The IDP removes repetitive setup work without hiding necessary context, balancing convenience with transparency.
+The platform team builds and maintains the IDP. Developers consume it as a product. This structure balances autonomy with governance.
 
-=== Why IDPs matter
+=== Why IDPs Matter
 
-Internal Developer Platforms address the complexity of modern cloud-native development through:
+IDPs address the challenges of modern software delivery:
 
-* *Self-service capabilities*: Developers complete recurring tasks through self-service interfaces instead of filing tickets. Automation reduces manual errors and accelerates the development lifecycle.
+* *Self-service and automation:* Developers complete common tasks without raising tickets. Automation reduces errors and wait times.
+* *Standardization:* Golden paths enforce secure, compliant, and reliable practices.
+* *Centralized knowledge:* Portals consolidate documentation, ownership details, and service metadata.
+* *Improved experience:* Developers spend less time switching contexts and more time building features.
 
-* *Standardized workflows*: The platform includes pre-approved technology stacks, configurations, and processes that follow best practices. These "golden paths" ensure all projects meet organizational standards for security, compliance, and reliability.
+== Key Features of Red Hat Developer Hub
 
-* *Consolidated knowledge*: The developer portal serves as the primary source for discovering internal APIs, services, and documentation. This breaks down information silos by centralizing content previously scattered across wikis, ticket systems, and team repositories.
+RHDH provides integrated features that help teams move from idea to production quickly and consistently.
 
-* *Enhanced developer experience*: By reducing cognitive load and providing a coherent interface, an IDP allows developers to focus on coding and solving business problems rather than managing infrastructure. This leads to faster onboarding and increased engineering productivity.
+=== Centralized Dashboard
 
-== Key features of Red Hat Developer Hub
+Access all development tools, pipelines, APIs, environments, and documentation from a single interface. RHDH integrates with Git repositories, Kubernetes, OpenShift, and project management tools.
 
-Red Hat Developer Hub includes features designed to streamline the entire development process:
+=== Software Catalog
 
-=== Centralized dashboard
+The software catalog is the core of RHDH. It provides a searchable inventory of internal services, APIs, applications, and libraries.
 
-RHDH provides a unified interface for accessing developer tools, CI/CD pipelines, APIs, monitoring tools, and documentation. It integrates with Git repositories, OpenShift, Kubernetes, and project management tools to deliver a comprehensive view of your development ecosystem.
-
-=== Software catalog
-
-The software catalog functions as the central inventory of all software assets, including services, applications, libraries, data pipelines, and APIs. It aggregates metadata from various sources into a searchable registry.
-
-Benefits of the software catalog include:
-
-* *Simplified discovery*: Find existing services, APIs, and libraries through direct search
-* *Clear ownership information*: Identify who owns and maintains each component
-* *Consistent metadata*: Access standardized information across all entries
-* *Comprehensive search*: Locate related code, documentation, and infrastructure from one interface
+* Discover existing components quickly.
+* View ownership, metadata, and status at a glance.
+* Standardize structure across all entries.
+* Search code, docs, and infrastructure in one place.
 
 For more information on software catalog see, link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-catalog[About software catalog]
 
-=== Software templates
+=== Software Templates
 
-Software templates in RHDH provide on-demand scaffolding for new projects, eliminating the time-consuming and error-prone process of creating applications from scratch. These templates generate project repositories with all necessary configuration and boilerplate code.
+Templates generate preconfigured project scaffolding, including CI/CD, runtime, and security configurations.
 
-Software templates provide:
-
-* *Rapid project initialization*: Create new projects with appropriate structure and integrations in minutes
-* *Standardized implementation*: Ensure organizational standards are incorporated into every new project
-* *Developer autonomy with guardrails*: Enable developers to create projects independently while following approved patterns
-* *Specialized templates*: Start development of AI-enabled applications using purpose-built templates
+* Create projects in minutes.
+* Enforce best practices and organizational standards.
+* Empower developers to self-serve within defined boundaries.
+* Use AI-focused templates to build intelligent applications faster.
 
 For more information on software templates, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-templates[About software templates]
 
-=== Technical documentation
+=== Tech Docs
 
-Red Hat Developer Hub includes a built-in technical documentation feature that centralizes documentation and simplifies its creation, maintenance, and discovery.
+Tech Docs in RHDH make documentation part of the development lifecycle.
 
-Technical documentation in RHDH provides:
+* Write docs in Markdown.
+* Store docs alongside code.
+* Search and view docs in the portal.
+* Follow a consistent structure across all teams.
 
-* *Centralized documentation access*: Find all documentation through one interface
-* *Streamlined maintenance*: Write documentation in Markdown alongside code
-* *Enhanced searchability*: Locate relevant documentation quickly through integrated search
-* *Uniform structure*: Navigate documentation more easily through consistent formatting
+=== Learning Paths
 
+Learning Paths help developers onboard and upskill with curated tutorials and guides.
 
+* Complete structured onboarding.
+* Follow interactive, step-by-step guides.
+* Learn modern topics, including AI/ML.
+* Access internal and external training resources.
 
-=== Learning paths
+=== Plugins and Integrations
 
-RHDH offers learning paths that guide developers through tutorials, educational materials, and onboarding sequences directly within the portal.
+Use plugins to integrate external tools and extend RHDH functionality.
 
-Learning paths deliver:
-
-* *Structured onboarding*: Help new team members become productive quickly
-* *Guided learning*: Follow step-by-step instructions for platform features
-* *AI technology adoption*: Access specialized content for implementing AI/ML technologies
-* *Integrated resources*: Utilize both internal and Red Hat learning materials
-
-
-
-=== Plugins and integrations
-
-RHDH integrates with existing development tools and presents their information in a unified interface.
-
-The plugin ecosystem provides:
-
-* *Platform extensibility*: Add functionality through Red Hat-supported and verified plugins
-* *Tool consolidation*: Reduce context switching between different systems
-* *Non-disruptive updates*: Add or update plugins without service interruptions
-* *Runtime environment integration*: Connect seamlessly with OpenShift and cloud services
-* *Automation interfaces*: Enable advanced workflows through APIs and CLI tools
+* Add verified, Red Hat–supported plugins.
+* Reduce context switching with unified dashboards.
+* Update or remove plugins without downtime.
+* Integrate with OpenShift, pipelines, scanners, and more.
 
 For more information on Plugins and integrations, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/plugins-integrations[About plugins and integrations]
 
-=== Role-based access control
+=== Role-Based Access Control (RBAC)
 
-RHDH includes enterprise-grade role-based access control that can be customized to meet organizational security requirements.
+RHDH includes enterprise-grade RBAC.
 
-== Benefits for different audiences
+* Control access to resources by role.
+* Secure sensitive operations.
+* Meet enterprise compliance standards.
 
-=== For developers
+== Benefits by Audience
 
-Red Hat Developer Hub optimizes the daily experience of software developers by consolidating tools and automating repetitive tasks:
+=== For Developers
 
-==== Faster onboarding
-RHDH accelerates the onboarding process for new team members. The centralized software catalog and comprehensive documentation help developers quickly understand the organizational software landscape. Learning paths provide structured guidance, while templates enable rapid creation of development environments and sample applications. This results in significantly faster productivity with new codebases or technologies.
+* *Fast onboarding:* Access services, docs, and environments quickly. Start building with minimal setup.
+* *Reduced cognitive load:* Find everything in one place—no more tool hopping.
+* *Self-service:* Create new apps and environments without manual approvals.
+* *Built-in standards:* Follow secure, compliant workflows automatically.
+* *Cross-team visibility:* Discover services, reuse APIs, and stay informed.
+* *Higher productivity:* Focus on writing code, not configuring systems.
 
-==== Reduced cognitive load
-RHDH consolidates critical development resources, including code repositories, build pipelines, test results, environments, and deployment statuses. This eliminates the need to manage multiple interfaces and credentials or search through disconnected systems. A single search can replace exploration across multiple tools, allowing developers to focus on problem-solving rather than locating resources.
+=== For Platform Engineers
 
-==== Self-service capabilities with guardrails
-RHDH enables developers to create applications, APIs, or environments through self-service interfaces. This autonomy eliminates waiting for other teams to perform initial setup while maintaining security through platform guardrails such as pre-approved templates and automated policy checks. Developers can innovate confidently, knowing that built-in best practices ensure compliance with organizational standards.
+* *Curated platforms:* Build reusable tools and templates aligned to organizational needs.
+* *Central configuration:* Manage infrastructure as code. Synchronize settings across environments.
+* *Governance at scale:* Enforce policies without blocking progress. Ensure compliance through automation.
 
-==== Consistent processes
-RHDH standardizes development processes across teams. Services in the catalog follow a consistent format, and template-generated projects adhere to established best practices. This consistency enables developers to move between projects and find familiar structures and tooling, reducing time spent addressing preventable issues and improving software quality and reliability.
+=== For Organizations
 
-==== Enhanced collaboration
-The hub serves as a central communication point between development, operations, and other stakeholders. Developers gain visibility into how their work connects to the broader organization. The catalog shows service consumption patterns, while documentation from other teams and company-wide announcements are accessible from the portal. This transparency eliminates silos and promotes unified development approaches.
+* *Scalability:* Support growing teams with a consistent developer experience.
+* *Security:* Protect systems with built-in RBAC and secure integrations.
+* *Efficiency:* Eliminate manual workflows and reduce delivery time. Increase ROI on developer time.
 
-==== Improved productivity and satisfaction
-By removing friction from the development process, RHDH allows developers to focus on building features and solving problems. Developers report less frustration and reduced context-switching fatigue when using an internal developer portal. A professional, customized portal demonstrates organizational commitment to developer experience, positively impacting team morale and retention.
+== Getting Started
 
-=== For platform engineers
-
-RHDH equips platform teams with effective tools for creating and maintaining exceptional developer experiences:
-
-==== Customizable platforms with curated tools
-Platform engineers can build experiences tailored to organizational needs by selecting from verified plugins and integrations. The plugin architecture supports adding only essential components, preventing feature bloat while ensuring developers have appropriate tools available.
-
-==== Centralized configuration management
-RHDH maintains consistent configuration through centralized repositories. Updates can be synchronized across the platform, improving version control and ensuring environment consistency. This centralization reduces maintenance requirements and prevents configuration drift between projects.
-
-==== Simplified governance
-RHDH streamlines technology choice oversight and operational process management. Templates and catalog policies make implementing and enforcing standards more straightforward. Platform teams can guide development practices without creating bottlenecks, balancing governance requirements with developer productivity.
-
-=== For organizations
-
-At the organizational level, RHDH delivers strategic advantages:
-
-==== Scalability for organizational growth
-RHDH enables rapid onboarding of new teams and supports application growth while maintaining consistency. The architecture scales with organizational needs, ensuring all developers—whether ten or a thousand—access the same quality tools and services. This scalability is essential for growing organizations or those planning expansion.
-
-==== Enterprise-grade security
-RHDH protects systems and data through robust role-based access control customized to organizational requirements. The security model ensures appropriate resource access, reducing risk while enabling productivity. As a Red Hat product, it benefits from enterprise security practices and regular updates addressing emerging threats.
-
-==== Operational efficiency
-RHDH eliminates workflow bottlenecks and reduces cognitive demands on development teams. By streamlining processes and centralizing resources, organizations save time and money. Developers spend less time on administrative tasks and more time creating value, while standardized practices reduce errors and remediation costs, accelerating time-to-market and optimizing resource usage.
-
-== Getting started with Red Hat Developer Hub
-
-Transform your development experience with these steps:
-
-1. link:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/requirements[Review system requirements]
-2. link:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/index[Install Red Hat Developer Hub]
-3. link:/en/documentation/red_hat_developer_hub/1.5/html/user_guides/index[Explore feature guides]
-4. link:/en/documentation/red_hat_developer_hub/1.5/html/configuring_red_hat_developer_hub/index[Customize with plugins and integrations]
-
-
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/requirements[Review system requirements]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/index[Install Red Hat Developer Hub]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/user_guides/index[Explore feature guides]
+. xref:/en/documentation/red_hat_developer_hub/1.5/html/configuring_red_hat_developer_hub/index[Customize with plugins and integrations]
