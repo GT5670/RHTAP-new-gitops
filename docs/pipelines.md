@@ -1,119 +1,136 @@
-= About Red Hat Developer Hub
+# Passive Voice Rule
 
-Red Hat Developer Hub (RHDH) is an enterprise-grade internal developer portal (IDP) that simplifies and accelerates software development. It provides a customizable web-based portal that connects to Red Hat OpenShift and other cloud-native platforms, creating a consistent environment for building, deploying, and managing applications.
+Avoid using passive voice. Write in active voice whenever possible to improve clarity, reduce ambiguity, and enhance reader engagement.
 
-RHDH centralizes access to source code repositories, CI/CD pipelines, APIs, documentation, and runtime environments. Developers follow predefined workflows—called golden paths—that reduce complexity and promote best practices.
+Passive voice hides the subject performing the action. In technical writing, always make the actor clear when possible.
 
-RHDH improves developer productivity, reduces tool sprawl, and ensures consistent delivery across teams.
+---
 
-== Understanding Internal Developer Platforms
+## 🧠 How to Identify Passive Voice
 
-An internal developer platform (IDP) is a curated set of tools and services that supports developer self-service. Instead of navigating multiple systems, developers use a unified interface to perform tasks such as provisioning environments, deploying code, or accessing APIs.
+- Look for forms of **"to be"** + **past participle** (e.g., *was written*, *is completed*, *will be done*)
+- The agent (doer) may be missing or introduced with **"by"**
+- Subject receives the action instead of performing it
 
-The platform team builds and maintains the IDP. Developers consume it as a product. This structure balances autonomy with governance.
+---
 
-=== Why IDPs Matter
+## ✅ General Rewrite Strategy
 
-IDPs address the challenges of modern software delivery:
+1. Identify the verb phrase (e.g., *was processed by*)
+2. Identify the agent (e.g., *the system*)
+3. Make the agent the subject of the sentence
+4. Rewrite using an active verb form
 
-* *Self-service and automation:* Developers complete common tasks without raising tickets. Automation reduces errors and wait times.
-* *Standardization:* Golden paths enforce secure, compliant, and reliable practices.
-* *Centralized knowledge:* Portals consolidate documentation, ownership details, and service metadata.
-* *Improved experience:* Developers spend less time switching contexts and more time building features.
+---
 
-== Key Features of Red Hat Developer Hub
+## 🔁 Simple Passive → Active
 
-RHDH provides integrated features that help teams move from idea to production quickly and consistently.
+**❌ Passive:**  
+The bug was fixed by the developer.
 
-=== Centralized Dashboard
+**✅ Active:**  
+The developer fixed the bug.
 
-Access all development tools, pipelines, APIs, environments, and documentation from a single interface. RHDH integrates with Git repositories, Kubernetes, OpenShift, and project management tools.
+---
 
-=== Software Catalog
+## 🔁 Passive with Unknown Agent
 
-The software catalog is the core of RHDH. It provides a searchable inventory of internal services, APIs, applications, and libraries.
+**❌ Passive:**  
+The logs were deleted.
 
-* Discover existing components quickly.
-* View ownership, metadata, and status at a glance.
-* Standardize structure across all entries.
-* Search code, docs, and infrastructure in one place.
+**✅ Active:**  
+Someone deleted the logs. *(or)* The system deleted the logs.
 
-For more information on software catalog see, link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-catalog[About software catalog]
+---
 
-=== Software Templates
+## 🔁 Compound Passive Sentences
 
-Templates generate preconfigured project scaffolding, including CI/CD, runtime, and security configurations.
+**❌ Passive:**  
+The feature was developed by the team, and the update was pushed by the deployment script.
 
-* Create projects in minutes.
-* Enforce best practices and organizational standards.
-* Empower developers to self-serve within defined boundaries.
-* Use AI-focused templates to build intelligent applications faster.
+**✅ Active:**  
+The team developed the feature, and the deployment script pushed the update.
 
-For more information on software templates, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/software-templates[About software templates]
+---
 
-=== Tech Docs
+## 🔁 Complex Passive Sentences with Clauses
 
-Tech Docs in RHDH make documentation part of the development lifecycle.
+**❌ Passive:**  
+The proposal, which was drafted by the engineering team, was approved by the review board after revisions were made.
 
-* Write docs in Markdown.
-* Store docs alongside code.
-* Search and view docs in the portal.
-* Follow a consistent structure across all teams.
+**✅ Active:**  
+The engineering team drafted the proposal, and the review board approved it after they made revisions.
 
-=== Learning Paths
+---
 
-Learning Paths help developers onboard and upskill with curated tutorials and guides.
+## 🔁 Multiple Passive Clauses with Different Agents
 
-* Complete structured onboarding.
-* Follow interactive, step-by-step guides.
-* Learn modern topics, including AI/ML.
-* Access internal and external training resources.
+**❌ Passive:**  
+The server was configured by the DevOps team, and the database was optimized by the backend team before the deadline was met.
 
-=== Plugins and Integrations
+**✅ Active:**  
+The DevOps team configured the server, and the backend team optimized the database before meeting the deadline.
 
-Use plugins to integrate external tools and extend RHDH functionality.
+---
 
-* Add verified, Red Hat–supported plugins.
-* Reduce context switching with unified dashboards.
-* Update or remove plugins without downtime.
-* Integrate with OpenShift, pipelines, scanners, and more.
+## 🔁 Passive in Instructional Text
 
-For more information on Plugins and integrations, see link:/en/documentation/red_hat_developer_hub/1.5/html/about_red_hat_developer_hub/plugins-integrations[About plugins and integrations]
+**❌ Passive:**  
+The configuration file should be updated before the system is restarted.
 
-=== Role-Based Access Control (RBAC)
+**✅ Active:**  
+Update the configuration file before restarting the system.
 
-RHDH includes enterprise-grade RBAC.
+---
 
-* Control access to resources by role.
-* Secure sensitive operations.
-* Meet enterprise compliance standards.
+## 🔁 Passive with Future Tense and Clear Agent
 
-== Benefits by Audience
+**❌ Passive:**  
+Quarterly audits will be conducted by external auditors to ensure compliance.
 
-=== For Developers
+**✅ Active:**  
+External auditors will conduct quarterly audits to ensure compliance.
 
-* *Fast onboarding:* Access services, docs, and environments quickly. Start building with minimal setup.
-* *Reduced cognitive load:* Find everything in one place—no more tool hopping.
-* *Self-service:* Create new apps and environments without manual approvals.
-* *Built-in standards:* Follow secure, compliant workflows automatically.
-* *Cross-team visibility:* Discover services, reuse APIs, and stay informed.
-* *Higher productivity:* Focus on writing code, not configuring systems.
+---
 
-=== For Platform Engineers
+## 🔁 Passive with Present Tense and Agent
 
-* *Curated platforms:* Build reusable tools and templates aligned to organizational needs.
-* *Central configuration:* Manage infrastructure as code. Synchronize settings across environments.
-* *Governance at scale:* Enforce policies without blocking progress. Ensure compliance through automation.
+**❌ Passive:**  
+All deliverables are reviewed by the quality assurance team before final handoff.
 
-=== For Organizations
+**✅ Active:**  
+The quality assurance team reviews all deliverables before final handoff.
 
-* *Scalability:* Support growing teams with a consistent developer experience.
-* *Security:* Protect systems with built-in RBAC and secure integrations.
-* *Efficiency:* Eliminate manual workflows and reduce delivery time. Increase ROI on developer time.
+---
 
-== Getting Started
+## 🚫 Avoid These Constructions
 
-. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/requirements[Review system requirements]
-. xref:/en/documentation/red_hat_developer_hub/1.5/html/installing_red_hat_developer_hub/index[Install Red Hat Developer Hub]
-. xref:/en/documentation/red_hat_developer_hub/1.5/html/user_guides/index[Explore feature guides]
-. xref:/en/documentation/red_hat_developer_hub/1.5/html/configuring_red_hat_developer_hub/index[Customize with plugins and integrations]
+| Passive Phrase                  | Preferred Active Rewrite                 |
+|--------------------------------|------------------------------------------|
+| It was observed that...        | We observed that...                      |
+| It is recommended to...        | We recommend...                          |
+| The feature is expected to...  | The system is expected to...             |
+| Was completed by               | [Agent] completed...                     |
+
+---
+
+## 📌 When Passive Is Acceptable
+
+- When the agent is unknown or irrelevant:
+  - *The device was stolen.*
+- To emphasize the object receiving the action:
+  - *The patch was released within hours.*
+
+Use sparingly and deliberately.
+
+---
+
+## Summary
+
+| Passive Voice                                   | Active Voice                                  |
+|------------------------------------------------|-----------------------------------------------|
+| The file was uploaded by the user.              | The user uploaded the file.                   |
+| The error was triggered.                        | The system triggered the error.               |
+| A new policy was introduced.                    | The manager introduced a new policy.          |
+| Quarterly audits will be conducted by auditors. | Auditors will conduct quarterly audits.       |
+| All deliverables are reviewed by the QA team.   | The QA team reviews all deliverables.         |
