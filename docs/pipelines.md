@@ -1,8 +1,8 @@
 import os
 import re
 
-# Settings
-search_phrase = r"\brhtap-cli\b"     # \b ensures word boundaries
+# Define the replacement
+search_pattern = r"\brhtap\b"   # \b ensures it matches the exact word only
 replacement = "tssc"
 target_extension = ".adoc"
 
@@ -10,7 +10,7 @@ def replace_in_file(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         content = file.read()
 
-    new_content = re.sub(search_phrase, replacement, content)
+    new_content = re.sub(search_pattern, replacement, content)
 
     if new_content != content:
         with open(filepath, "w", encoding="utf-8") as file:
