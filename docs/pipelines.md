@@ -1,25 +1,20 @@
 import os
+import re
 
-# Define the phrases and their replacements
-replacements = {
-    "Red Hat Trusted Application Pipeline": "{ProductName}",
-    "RHTAP": "{ProductShortName}"
-}
-
-# File extensions to process
+# Settings
+search_phrase = r"\brhtap-cli\b"     # \b ensures word boundaries
+replacement = "tssc"
 target_extension = ".adoc"
 
 def replace_in_file(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         content = file.read()
 
-    original_content = content
-    for target, replacement in replacements.items():
-        content = content.replace(target, replacement)
+    new_content = re.sub(search_phrase, replacement, content)
 
-    if content != original_content:
+    if new_content != content:
         with open(filepath, "w", encoding="utf-8") as file:
-            file.write(content)
+            file.write(new_content)
         print(f"Updated: {filepath}")
 
 def walk_and_replace(root_dir):
