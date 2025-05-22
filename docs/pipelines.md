@@ -1,33 +1,18 @@
-import os
+Mini Content Journey (MCJ)
+Details you need to upload in Google NotebookLM
+We need details on the feature updates:
+You can either use the Jira description, your research document, or you can schedule a meeting with your SMEs to discuss the feature updates
+(Optional) When in the meeting with SME use Notes by Gemini feature.
+In the Google NotebookLM, create a new Notebook and upload the following:
+Uploaded the Notes by Gemini
+Or manually add your findings from Jira description or research
+Added the link to the doc that needed to be updated
+Added the MCJ template
+Enter the following prompt:
+Could you please update the Content Journey Template for Quay Integration with all the details I uploaded?
+(Optional) You can also ask NotebookLM to give you a first draft of the content that you need to update.
+Prompt: Could you please give me the first draft of the content that I need to update?
 
-# Define the phrases and their replacements
-replacements = {
-    "Red Hat Trusted Application Pipeline": "{ProductName}",
-    "RHTAP": "{ProductShortName}"
-}
-
-# File extensions to process
-target_extension = ".adoc"
-
-def replace_in_file(filepath):
-    with open(filepath, "r", encoding="utf-8") as file:
-        content = file.read()
-
-    original_content = content
-    for target, replacement in replacements.items():
-        content = content.replace(target, replacement)
-
-    if content != original_content:
-        with open(filepath, "w", encoding="utf-8") as file:
-            file.write(content)
-        print(f"Updated: {filepath}")
-
-def walk_and_replace(root_dir):
-    for dirpath, _, filenames in os.walk(root_dir):
-        for filename in filenames:
-            if filename.endswith(target_extension):
-                replace_in_file(os.path.join(dirpath, filename))
-
-if __name__ == "__main__":
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    walk_and_replace(current_dir)
+Copy the content using the copy button and in a new google doc paste it
+Reviewed and made updates to the MCJ form.
+Ready to go!
